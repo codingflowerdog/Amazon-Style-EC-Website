@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>HappyMall</title>
+    <%include common.ejs%>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body style="height:1500px">
+    <!--Header Include-->
+    <%include header.ejs%>
+
+    <!--Main-->
+    <div class="main">
+        <div class="container-fluid">
+            <!-- carousel -->
+            <div class="d-flex justify-content-center">
+                <div id="carousel" class="carousel slide" data-ride="carousel">
+                    <!-- The slideshow -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/img/carousel1.jpg" class="img-fluid carousel-gradient" alt="carousel1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/img/carousel2.jpg" class="img-fluid carousel-gradient" alt="carousel2">
+                        </div>
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="carousel-control-prev h-50" >
+                        <span class="carousel-control-prev-icon" href="#carousel" data-slide="prev"></span>
+                    </a>
+                    <a class="carousel-control-next h-50" >
+                        <span class="carousel-control-next-icon" href="#carousel" data-slide="next"></span>
+                    </a>
+                </div>
+            </div>
+
+
+
+
+            <!--main start-->
+            <div class="item-list">
+                <div class="main-inner bg-white">
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">인기 상품</li>
+                                <li class="list-group-item">
+                                    <div class="d-flex main-inner-group-item mb-1">
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">타임세일</li>
+                                <li class="list-group-item">
+                                    <div class="d-flex main-inner-group-item mb-1">
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">최근 본 상품</li>
+                                <li class="list-group-item">
+                                    <div class="d-flex main-inner-group-item mb-1">
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">체크한상품의 관련상품</li>
+                                <li class="list-group-item">
+                                    <div class="d-flex main-inner-group-item mb-1">
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                        <div class="m-2">
+                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

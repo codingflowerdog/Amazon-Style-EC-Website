@@ -1,0 +1,122 @@
+.fa-bars{
+    color:white;
+}
+
+/*메뉴 호버 적용
+.menu span:hover{
+    border: 1px solid white;
+    border-radius: 3px;
+    margin:-1px;
+}*/
+
+.menu:hover{
+    border: 1px solid white;
+    border-radius: 3px;
+    margin:-1px;
+}
+
+.sidebar {
+    position:absolute;
+    width: 250px;
+    height:100%;
+    margin-left:-20px;
+    top: 0;
+    overflow-x: hidden;
+
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.category{
+    padding:10px 10px 10px 30px;
+}
+
+.category :hover{
+    color: #f1f1f1;
+}
+
+.welcome{
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:30px;
+}
+
+/* MODAL FADE LEFT RIGHT BOTTOM */
+.modal.fade:not(.show).left .modal-dialog {
+    -webkit-transform: translate3d(-200%, 0, 0);
+    transform: translate3d(-200%, 0, 0);
+
+}
+.modal.fade:not(.show).right .modal-dialog {
+    -webkit-transform: translate3d(25%, 0, 0);
+    transform: translate3d(25%, 0, 0);
+}
+.modal.fade:not(.show).bottom .modal-dialog {
+    -webkit-transform: translate3d(0, 25%, 0);
+    transform: translate3d(0, 25%, 0);
+}
+
+.modal.right .modal-dialog {
+    position:absolute;
+    top:0;
+    right:0;
+    margin:0;
+}
+
+.modal.left .modal-dialog {
+    position:absolute;
+    top:0;
+    left:0;
+    margin:0;
+    height:100%;
+    padding:0;
+}
+
+.modal.left .modal-dialog.modal-sm {
+    max-width:300px;
+}
+
+.modal.left .modal-content, .modal.right .modal-content {
+    min-height:100vh;
+    border:0;
+}
+
+.more{
+    padding-top:5px;
+}
+
+
+
+#logo{
+    font-size:20px;
+}
+@media screen and (max-width: 822px) {
+    #logo{
+        display: none;
+    }
+}
+@media screen and (max-width: 686px) {
+    .menu{
+        display: none;
+    }
+}
+

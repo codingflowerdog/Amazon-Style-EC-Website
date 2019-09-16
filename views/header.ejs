@@ -1,0 +1,156 @@
+<script>
+    $(function(){
+        /*$('.dropdown-menu').on('click','a',function(){
+            $('.dropdown-toggle').text($(this).text());
+            $('.dropdown-toggle').val($(this).text());
+
+        })
+
+        $ ("body").on ("click", function (e) {
+            if ($(e.target).parent('#mySidebar').length === 0) {
+                closeNav()
+            }
+        });
+
+        $('#hamgerger-menu').on('click',function(){
+            openNav();
+        })
+
+        $('#sidebarClose').on('click',function(){
+            closeNav();
+        })
+
+        function openNav() {
+            document.getElementById("mySidebar").style.left = "0px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.left = "-250px";
+        }*/
+
+    })
+</script>
+<!-- sideBar -->
+<!--<div id="mySidebar" class="modal fade left" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        &lt;!&ndash; Modal content&ndash;&gt;
+        <div class="modal-content">
+            <a id="sidebarClose" class="closebtn">×</a>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action">First item</a>
+                <a href="#" class="list-group-item list-group-item-action">Second item</a>
+                <a href="#" class="list-group-item list-group-item-action">Third item</a>
+            </div>
+        </div>
+
+    </div>
+</div>-->
+<!-- Sidebar Left -->
+<div class="modal fade left" id="mySidebar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+            <div class="sidebar bg-dark">
+                <div id="sideMenu" class="d-flex flex-column">
+                    <div class="bg-dark welcome">
+                        <span class="text-white">환영합니다. 로그인</span>
+                    </div>
+                    <div class="d-flex bg-white category">
+                        <span class="text-info mr-auto">카테고리별로 구입</span>
+                    </div>
+                    <div class="d-flex bg-white category">
+                        <span class="text-normal mr-auto">DVD, 만화 & 게임</span>
+                        <i class="fas fa-chevron-right more"></i>
+                    </div>
+                    <div class="d-flex bg-white category">
+                        <span class="text-normal mr-auto">전기, 카메라 & 영상기기</span>
+                        <i class="fas fa-chevron-right more"></i>
+                    </div>
+                    <div class="d-flex bg-white category">
+                        <span class="text-normal mr-auto">컴퓨터 & 사무용품</span>
+                        <i class="fas fa-chevron-right more"></i>
+                    </div>
+                    <div class="d-flex bg-white category">
+                        <span class="text-normal mr-auto">주방용품, 침대 & DIY</span>
+                        <i class="fas fa-chevron-right more"></i>
+                    </div>
+                    <div class="d-flex bg-white category">
+                        <span class="text-normal mr-auto">식기, 음료 & 술</span>
+                        <i class="fas fa-chevron-right more"></i>
+                    </div>
+                    <div class="d-flex bg-white category">
+                        <span class="text-normal mr-auto">약품 & 화장품</span>
+                        <i class="fas fa-chevron-right more"></i>
+                    </div>
+                    <div class="d-flex bg-white category border-top">
+                        <span class="text-info mr-auto">개인메뉴</span>
+                    </div>
+                    <div class="d-flex bg-white category">
+                        <span class="text-normal mr-auto">주문이력</span>
+                    </div>
+                    <div class="d-flex bg-white category">
+                        <span class="text-normal mr-auto">인기상품</span>
+                    </div>
+                    <div class="d-flex bg-white category">
+                        <span class="text-normal mr-auto">계정정보</span>
+                    </div>
+                    <div class="d-flex bg-white category">
+                        <span class="text-normal mr-auto">로그아웃</span>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav id="nav"class="navbar navbar-expand-sm fixed-top shadow-sm bg-dark">
+    <div class="container-fluid d-flex justify-content-between">
+        <div class="d-flex">
+            <div class="mr-1">
+                <span id="hamgerger-menu" class="fas fa-bars fa-lg rounded border p-2 "
+                      data-toggle="modal" data-target="#mySidebar" aria-hidden="true">
+                </span>
+            </div>
+            <div class="ml-1 mr-2">
+                <span id="logo" class="text-white font-weight-bold">HappyMall</span>
+            </div>
+        </div>
+        <div class="flex-fill">
+            <div class="p-1">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                            모든 제품
+                        </button><div class="dropdown-menu">
+                            <a class="dropdown-item" selected="selected" href="#">모든 제품</a>
+                            <a class="dropdown-item" href="#">전자제품</a>
+                            <a class="dropdown-item" href="#">의류</a>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="search">
+                    <div class="input-group-append">
+                        <span class="btn" type="submit">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-1">
+            <div class="d-flex flex-wrap">
+                <span class="menu p-1 align-middle text-white font-weight-bold">
+                    주문이력
+                </span>
+                <span class="menu p-1 align-middle text-white font-weight-bold">
+                    로그인
+                </span>
+                <span class="menu p-1 align-middle text-white font-weight-bold">
+                    인기상품
+                </span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
