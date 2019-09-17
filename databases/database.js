@@ -22,6 +22,23 @@ function connect(app,env){
         createSchema(app,env);
     });
 
-    database.db.on('disconnected',connect(app,env));
+    database.db.on('disconnected',connect);
 
 }
+
+function createSchema(app,env){
+    console.log('createSchema가 호출됨')
+
+    for(var i=0; i < env.db_schemas.length; i++){
+        var curItem = env.db_schemas[i];
+        var curSchema = require(curItem.file).createSchema(mongoose);
+        var curModel = mongoose.model(curItem.collection,curSchema);
+
+        database[curSchema] = curSchema;
+        database[curModel] = curModel;
+    }
+
+    app.set('database',database);
+}
+
+module.exports = database;
