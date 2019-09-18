@@ -3,7 +3,7 @@ var crypto = require('crypto')
 var schema = {}
 
 schema.createSchema = function(mongoose){
-    var accountSchema = mongoose.Schema({
+    var accountSchema = new mongoose.Schema({
         name:{type:String, 'default':'', required:true},
         email:{type:String, 'default':'', required:true},
         hashed_password:{type:String, required:true, 'default':' '},
@@ -16,7 +16,9 @@ schema.createSchema = function(mongoose){
         this._password = password;
         this.salt = this.makeSalt();
         this.hashed_password = this.encryptPassword(password);
+        console.log('password virtual set : ' + this.hashed_password)
     }).get(function(){
+        console.log('password virtual get');
         return this._password;
     })
 
@@ -26,6 +28,10 @@ schema.createSchema = function(mongoose){
 
     accountSchema.static('findByEmail',function(email,callback){
         return this.find({'email':email},callback)
+    })
+
+    accountSchema.method('createAccount',function(callback) {
+        return this.save(callback);
     })
 
     accountSchema.method('encryptPassword',function(password,inSalt){

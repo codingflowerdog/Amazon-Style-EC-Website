@@ -34,8 +34,9 @@ function createSchema(app,env){
         var curSchema = require(curItem.file).createSchema(mongoose);
         var curModel = mongoose.model(curItem.collection,curSchema);
 
-        database[curSchema] = curSchema;
-        database[curModel] = curModel;
+        database[curItem.schemaName] = curSchema;
+        database[curItem.modelName] = curModel;
+
     }
 
     app.set('database',database);

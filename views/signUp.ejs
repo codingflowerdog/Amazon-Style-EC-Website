@@ -19,36 +19,36 @@
             <article class="card-body mx-auto" style="max-width: 400px;">
                 <h4 class="card-title mt-3 text-center">회원 가입</h4>
                 <p class="text-center">무료로 회원으로 등록할 수 있습니다.</p>
-                <form>
+                <form method="post" action="/procSignUp">
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                         </div>
-                        <input name="" class="form-control" placeholder="이름" type="text">
+                        <input name="name" class="form-control" placeholder="이름" type="text">
                     </div> <!-- form-group// -->
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                         </div>
-                        <input name="" class="form-control" placeholder="이메일" type="email">
+                        <input name="email" class="form-control" placeholder="이메일" type="email">
                     </div> <!-- form-group// -->
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
                         </div>
-                        <input name="" class="form-control" placeholder="전화번호" type="text">
+                        <input name="phone" class="form-control" placeholder="전화번호" type="text">
                     </div> <!-- form-group// -->
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                         </div>
-                        <input class="form-control" placeholder="비밀번호" type="password">
+                        <input name="password" class="form-control" placeholder="비밀번호" type="password">
                     </div> <!-- form-group// -->
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                         </div>
-                        <input class="form-control" placeholder="비밀번호 확인" type="password">
+                        <input name="checkPassword" class="form-control" placeholder="비밀번호 확인" type="password">
                     </div> <!-- form-group// -->
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block"> 가입하기  </button>
