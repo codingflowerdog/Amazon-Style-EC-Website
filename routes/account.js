@@ -92,5 +92,18 @@ var procSignUp = function(req,res){
 
 }
 
+var procSignIn = function(req,res){
+    //To do : Add auth account
+}
+
+var procSignOut = function(req,res){
+    req.session.destroy(function(err){
+        if(err){throw err}
+        res.redirect('/')
+    });
+}
+
 module.exports.dispSignUp = dispSignUp;
 module.exports.procSignUp = procSignUp;
+module.exports.procSignIn = procSignIn;
+module.exports.procSignOut = procSignOut;
