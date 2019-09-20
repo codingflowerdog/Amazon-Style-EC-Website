@@ -3,6 +3,7 @@ var static = require('serve-static');
 var bodyParser = require('body-parser');
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser');
+var expressErrorHandler = require('express-error-handler');
 
 var init = function(app,env){
     app.use(static(path.join(__dirname,'/views')));
@@ -22,6 +23,14 @@ var init = function(app,env){
     app.set('views',__dirname + '/views');
     app.set('view engine','ejs');
     app.engine('html',require('ejs').renderFile);
+
+    var errorHandler = expressErrorHandler({
+        static:{
+            '404':path.join(__dirname, 'public/404.html')
+        }
+    });
+    app.use(expressErrorHandler.httpError(404));
+    app.use(errorHandler);
 }
 
 module.exports.init = init;
