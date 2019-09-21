@@ -16,6 +16,27 @@ var init = function(app,router){
 
     app.use('/',router);
 
+    //Set Error Page
+    setErrorPage(app,router);
+
+}
+
+var setErrorPage = function(app,router){
+    app.use(function(req,res,next){
+        console.log('Create 404 Error');
+        next(createError(404));
+    });
+
+    app.use(function(err,req,res,next){
+        var context = {}
+
+        req.app.render('404',context,function(err,html){
+            if(err){throw err;}
+            res.end(html);
+        })
+
+    })
+
 }
 
 module.exports.init = init

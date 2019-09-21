@@ -24,13 +24,6 @@ var init = function(app,env){
     app.set('view engine','ejs');
     app.engine('html',require('ejs').renderFile);
 
-    var errorHandler = expressErrorHandler({
-        static:{
-            '404':path.join(__dirname, 'public/404.html')
-        }
-    });
-    app.use(expressErrorHandler.httpError(404));
-    app.use(errorHandler);
 }
 
 module.exports.init = init;
