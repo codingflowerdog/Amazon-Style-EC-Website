@@ -2,12 +2,19 @@
     color:white;
 }
 
-/*메뉴 호버 적용
-.menu span:hover{
-    border: 1px solid white;
-    border-radius: 3px;
-    margin:-1px;
-}*/
+.main{
+    margin: 62px auto 0 auto;
+    width:80%;
+}
+
+.error{
+    margin: 10px auto 0 auto;
+    width:20%;
+    min-width: 400px;
+}
+a:link { color: green; text-decoration: none;}
+a:visited { color: green; text-decoration: none;}
+a:hover { color: green; text-decoration: underline;}
 
 .menu:hover{
     border: 1px solid white;

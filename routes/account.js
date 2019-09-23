@@ -92,8 +92,113 @@ var procSignUp = function(req,res){
 
 }
 
+var dispSignIn = function(req,res){
+
+    var paramEmail = req.body.email;
+    var mode = req.query.mode;
+
+    var context = {
+        title:'HappyMall - signIn',
+        session:req.session,
+        accountEmail:paramEmail
+    }
+
+    console.log(paramEmail)
+    if(!req.session.accountEmail){
+        console.log('checkEmail')
+        req.app.render('signIn',context,function(err,html){
+            if(err){throw err;}
+            res.end(html);
+        })
+    } else {
+        console.log('checkPassword')
+        req.app.render('signIn',context,function(err,html){
+            if(err){throw err;}
+            res.end(html);
+        })
+    }
+
+
+}
+
+var procCheckEmail = function(req,res){
+    //To do : add checkEmail method
+
+    var paramEmail = req.body.email;
+    var database = req.app.get('database');
+    var accountSchema = database.accountSchema;
+    var accountModel = database.accountModel;
+
+    var context = {
+        title:'HappyMail - Sign In',
+        session:req.session,
+        accountEmail:paramEmail
+    }
+    if(database){
+
+    } else{
+        //To do : add error page;
+        console.log('Database connect failed');
+    }
+
+}
+
 var procSignIn = function(req,res){
-    //To do : Add auth account
+    var paramEmail = req.body.email;
+    var database = req.app.get('database');
+    var accountSchema = database.accountSchema;
+    var accountModel = database.accountModel;
+    var context = {}
+
+    if(database){
+        if(req.session.authorized === true){
+            console.log('Sign In Already')
+        } else {
+
+        }
+        if(paramEmail){
+            if(req.session.accountEmail){
+                req.session.destroy();
+            }
+            accountModel.findById(paramEmail,function(err,accountInfo){
+                if(err){
+                    //To do : Add Error Page
+                    console.err('사용자 인증 에러');
+
+                    //Temp Error Page
+                } else{
+                    if(accountInfo.length > 0){
+                        var auth = userModel.authenticate(paramEmail,accountInfo[0]._doc.inSalt,accountInfo[0]._doc.hashed_password);
+                        if(auth){
+                            if(req.session.accountEmail){
+                                console.log('Session is already existed')
+                            } else {
+                                req.session.accountEmail = paramEmail;
+                                req.session.accountEmail = accountInfo[0]._doc.name;
+                            }
+
+                        } else{
+                            //To do : Add Error Proc
+                        }
+                        req.app.render('index',context,function(err,html){
+                            if(err){throw err;}
+                            res.end(html)
+                        })
+                    } else {
+                        //To do : Login Failed
+                        console.log('Login Failed')
+                    }
+
+                }
+            })
+        else{
+            //To do : add Error page
+            console.log('mode parameter error')
+        }
+    } else{
+        //To do : Add error Page
+        console.log('Database connected Failed')
+    }
 }
 
 var procSignOut = function(req,res){
@@ -104,6 +209,8 @@ var procSignOut = function(req,res){
 }
 
 module.exports.dispSignUp = dispSignUp;
+module.exports.dispSignIn = dispSignIn;
+
 module.exports.procSignUp = procSignUp;
 module.exports.procSignIn = procSignIn;
 module.exports.procSignOut = procSignOut;

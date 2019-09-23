@@ -35,3 +35,37 @@
     background-color: #42AEEC;
     color: #fff;
 }
+
+.signIn{
+    width:348px;
+    heigth:279px;
+    margin:15px auto 0 auto;
+}
+.form>span{
+    font-size:30px;
+}
+
+.logo{
+    width:100%;
+    margin:15px auto 15px auto;
+    text-align: center;
+}
+
+.logo>span{
+    font-size:30px;
+}
+
+.next{
+    background-color: goldenrod;
+    width:100%;
+}
+
+.signUp{
+    margin-top : 20px;
+    padding-top : 20px;
+}
+
+.signUp>button{
+    background-color: #dddddd;
+    width:100%;
+}
