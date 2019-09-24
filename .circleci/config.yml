@@ -44,7 +44,7 @@ jobs:
             - "08:6f:21:4a:d6:8c:b3:3a:4e:d2:1b:74:b3:e2:90:5e"
 
       - run: scp -o StrictHostKeyChecking=no -r ./* slboxer@hanainu.com:/home/slboxer/Webapp/amazon/
-        -
+
       - run:
           name: npm install
           command: ssh -t slboxer@hanainu.com -o StrictHostKeyChecking=no<<"cmd"
