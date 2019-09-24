@@ -16,6 +16,8 @@ jobs:
 
     working_directory: ~/repo
 
+    branches: master
+
     steps:
       - checkout
 
