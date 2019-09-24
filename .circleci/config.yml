@@ -39,6 +39,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       #command: ssh slboxer@hanainu.com -o StrictHostKeyChecking=no<<'cmd' "./deploy.sh" cmd
+      #commit test
       - run: scp -o StrictHostKeyChecking=no -r ./* slboxer@hanainu.com:/home/slboxer/Webapp/amazon/
 
 workflows:
