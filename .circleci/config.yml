@@ -18,7 +18,7 @@ jobs:
 
     branches:
       only:
-        -master
+        - master
 
     steps:
       - checkout
