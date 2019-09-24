@@ -39,7 +39,10 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       #command: ssh slboxer@hanainu.com -o StrictHostKeyChecking=no<<'cmd' "./deploy.sh" cmd
-      #commit test
+      - add_ssh_keys:
+          fingerprints:
+            - "08:6f:21:4a:d6:8c:b3:3a:4e:d2:1b:74:b3:e2:90:5e"
+
       - run: scp -o StrictHostKeyChecking=no -r ./* slboxer@hanainu.com:/home/slboxer/Webapp/amazon/
 
 workflows:
