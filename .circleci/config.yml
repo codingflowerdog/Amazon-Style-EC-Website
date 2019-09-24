@@ -20,9 +20,9 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      - npm_install: npm install
+      - run: npm install
 
-      - deploy: scp -r ./* slboxer@hanainu.com:/home/slboxer/Webapp/amazon/
+      - run: scp -r ./* slboxer@hanainu.com:/home/slboxer/Webapp/amazon/
 workflows:
   version: 2
   build:
