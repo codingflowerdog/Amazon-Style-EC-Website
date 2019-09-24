@@ -39,7 +39,7 @@ jobs:
 
 workflows:
   version: 2
-  build:
+  build-deploy:
     jobs:
       - deploy
           filters:
