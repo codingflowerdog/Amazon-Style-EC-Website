@@ -38,11 +38,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - add_ssh_keys:
-          fingerprints:
-            - '66:2a:bb:ab:29:14:0c:e5:e5:50:21:08:d5:ca:4b:34'
-
-      - run: scp -r ./* slboxer@hanainu.com:/home/slboxer/Webapp/amazon/
+      #command: ssh slboxer@hanainu.com -o StrictHostKeyChecking=no<<'cmd' "./deploy.sh" cmd
+      - run: scp -o StrictHostKeyChecking=no -r ./* slboxer@hanainu.com:/home/slboxer/Webapp/amazon/
 
 workflows:
   version: 2
