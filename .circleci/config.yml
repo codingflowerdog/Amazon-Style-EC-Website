@@ -20,8 +20,6 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      - git_clone: git clone git@github.com:codingflowerdog/Amazon-Style-EC-Website.git .
-
       - npm_install: npm install
 
       - deploy: scp -r ./* slboxer@hanainu.com:/home/slboxer/Webapp/amazon/
