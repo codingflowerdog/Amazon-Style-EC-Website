@@ -16,6 +16,9 @@ jobs:
 
     working_directory: ~/repo
 
+    branches:
+      only: master
+
     steps:
       - checkout
 
@@ -39,5 +42,3 @@ workflows:
   build:
     jobs:
       - build
-          branches:
-            only: master
