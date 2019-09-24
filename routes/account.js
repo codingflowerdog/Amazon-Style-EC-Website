@@ -26,7 +26,7 @@ var createAccount = function(database,name,email,phone,password,callback){
     account.save(function(err,createdAccount){
         if(err){
             callback(err,null);
-            return;
+            return
         }
         callback(null,createdAccount)
     })
@@ -145,55 +145,108 @@ var procCheckEmail = function(req,res){
 
 var procSignIn = function(req,res){
     var paramEmail = req.body.email;
+    var paramPassword = req.body.password;
     var database = req.app.get('database');
     var accountSchema = database.accountSchema;
     var accountModel = database.accountModel;
     var context = {}
 
+    context.title = 'HappyMall - SignIn'
+
     if(database){
         if(req.session.authorized === true){
             console.log('Sign In Already')
         } else {
-
-        }
-        if(paramEmail){
-            if(req.session.accountEmail){
-                req.session.destroy();
-            }
-            accountModel.findById(paramEmail,function(err,accountInfo){
-                if(err){
-                    //To do : Add Error Page
-                    console.err('사용자 인증 에러');
-
-                    //Temp Error Page
-                } else{
-                    if(accountInfo.length > 0){
-                        var auth = userModel.authenticate(paramEmail,accountInfo[0]._doc.inSalt,accountInfo[0]._doc.hashed_password);
-                        if(auth){
-                            if(req.session.accountEmail){
-                                console.log('Session is already existed')
-                            } else {
-                                req.session.accountEmail = paramEmail;
-                                req.session.accountEmail = accountInfo[0]._doc.name;
-                            }
-
-                        } else{
-                            //To do : Add Error Proc
-                        }
-                        req.app.render('index',context,function(err,html){
-                            if(err){throw err;}
-                            res.end(html)
-                        })
-                    } else {
-                        //To do : Login Failed
-                        console.log('Login Failed')
-                    }
-
+            if(paramEmail) {
+                if (req.session.accountEmail) {
+                    console.log('session delete');
+                    req.session.destroy();
                 }
-            })
-        else{
-            //To do : add Error page
-            console.log('mode parameter error')
+                console.log('ParamEmail :: ' + paramEmail);
+                accountModel.findByEmail(paramEmail, function (err, accountInfo) {
+                    if (err) {
+                        //To do : Add Error Page
+                        console.err('사용자 인증 에러');
+
+                        //Temp Error Page
+                    } else {
+                        if (accountInfo.length > 0) {
+                            console.log('paramEmail');
+                            req.session.accountEmail = paramEmail;
+                            req.session.accountName = accountInfo[0]._doc.name;
+
+                            context.accountEmail = req.session.accountEmail;
+                            context.accountName = req.session.accountName;
+
+                            req.app.render('signIn', context, function (err, html) {
+                                if (err) {
+                                    throw err;
+                                }
+                                res.end(html)
+                            })
+                        } else {
+                            //To do : Login Failed
+                            console.log('Email not found');
+                            req.app.render('signIn', context, function (err, html) {
+                                if (err) {
+                                    throw err;
+                                }
+                                res.end(html)
+                            })
+                        }
+                    }
+                })
+            } else{
+                //To do : Check Password
+                console.log('check password');
+                accountModel.findByEmail(req.session.accountEmail, function (err, accountInfo) {
+                    if (err) {
+                        //To do : Add Error Page
+                        console.err('사용자 인증 에러');
+
+                        //Temp Error Page
+                    } else {
+                        if (accountInfo.length > 0) {
+                            console.log('checkPassword for ' + req.session.accountEmail);
+                            console.log('password ' + paramPassword);
+                            console.dir(accountInfo[0])
+                            var account = new accountModel({'email':req.session.accountEmail})
+                            var auth = account.authenticate(paramPassword,accountInfo[0]._doc.inSalt, accountInfo[0]._doc.hashed_password);
+                            if (auth) {
+                                context.accountEmail = req.session.accountEmail;
+                                context.accountName = req.session.accountName;
+
+                                console.log('Login Success');
+                                req.app.render('index', context, function (err, html) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    res.end(html)
+                                })
+                            } else {
+                                context.accountEmail = req.session.accountEmail;
+                                context.accountName = req.session.accountName;
+                                //To do : Add Error Proc
+                                req.app.render('signIn', context, function (err, html) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    res.end(html)
+                                })
+                            }
+                        } else {
+                            //To do : Login Failed
+                            console.log('Email not found');
+                            req.app.render('signIn', context, function (err, html) {
+                                if (err) {
+                                    throw err;
+                                }
+                                res.end(html)
+                            })
+                        }
+                    }
+                })
+            }
         }
     } else{
         //To do : Add error Page

@@ -22,9 +22,8 @@
             </div>
             <div class="form border p-3">
                 <span>Sign In</span>
-                <% console.log(accountEmail)%>
                 <%if(!accountEmail){%>
-                <form action="/dispSignIn" method="post">
+                <form action="/procSignIn" method="post">
                     <div class="form-group">
                         <label for="email">Email Account</label>
                         <input type="text" class="form-control" id="email" placeholder="Enter Email Address" name="email" required>

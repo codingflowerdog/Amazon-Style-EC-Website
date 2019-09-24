@@ -38,7 +38,9 @@ schema.createSchema = function(mongoose){
         if(inSalt){
             return crypto.createHmac('sha256',inSalt).update(password).digest('hex');
         } else{
-            return crypto.createHmac('sha256',this.salt).update(password).digest('hex');
+            console.log(isNaN(password));
+            console.log(isNaN(this.salt));
+            return crypto.createHmac('sha256',this.salt + '').update(password).digest('hex');
         }
     })
 
@@ -50,7 +52,7 @@ schema.createSchema = function(mongoose){
         if(inSalt){
             return this.encryptPassword(password,inSalt) === hashed_password;
         } else{
-            return this.encryptPassword(password,this.salt) === hashed_password;
+            return this.encryptPassword(password) === this.hashed_password;
         }
     })
 
