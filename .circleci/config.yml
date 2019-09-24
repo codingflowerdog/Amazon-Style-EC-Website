@@ -31,7 +31,7 @@ jobs:
             - v1-dependencies-
 
       # Download and cache dependencies
-      - run: npm install
+      #- run: npm install
 
       - save_cache:
           paths:
@@ -44,6 +44,14 @@ jobs:
             - "08:6f:21:4a:d6:8c:b3:3a:4e:d2:1b:74:b3:e2:90:5e"
 
       - run: scp -o StrictHostKeyChecking=no -r ./* slboxer@hanainu.com:/home/slboxer/Webapp/amazon/
+        -
+      - run:
+          name: npm install
+          command: ssh -t slboxer@hanainu.com -o StrictHostKeyChecking=no<<"cmd"
+          cd /home/slboxer/Webapp/amazon
+          npm install
+          cmd
+
 
 workflows:
   version: 2
