@@ -35,7 +35,7 @@ jobs:
 
       - run:
           name: npm install
-          command: ssh -o StrictHostKeyChecking=no slboxer@hanainu.com './deploy.sh amazon'
+          command: ssh -o StrictHostKeyChecking=no slboxer@hanainu.com 'Webapp/deploy.sh amazon'
 
 workflows:
   version: 2
