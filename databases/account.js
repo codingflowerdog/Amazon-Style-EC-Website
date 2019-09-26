@@ -40,7 +40,7 @@ schema.createSchema = function(mongoose){
         } else{
             console.log(isNaN(password));
             console.log(isNaN(this.salt));
-            return crypto.createHmac('sha256',this.salt + '').update(password).digest('hex');
+            return crypto.createHmac('sha256',this.salt).update(password).digest('hex');
         }
     })
 

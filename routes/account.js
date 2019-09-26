@@ -121,28 +121,6 @@ var dispSignIn = function(req,res){
 
 }
 
-var procCheckEmail = function(req,res){
-    //To do : add checkEmail method
-
-    var paramEmail = req.body.email;
-    var database = req.app.get('database');
-    var accountSchema = database.accountSchema;
-    var accountModel = database.accountModel;
-
-    var context = {
-        title:'HappyMail - Sign In',
-        session:req.session,
-        accountEmail:paramEmail
-    }
-    if(database){
-
-    } else{
-        //To do : add error page;
-        console.log('Database connect failed');
-    }
-
-}
-
 var procSignIn = function(req,res){
     var paramEmail = req.body.email;
     var paramPassword = req.body.password;
@@ -198,7 +176,6 @@ var procSignIn = function(req,res){
                 })
             } else{
                 //To do : Check Password
-                console.log('check password');
                 accountModel.findByEmail(req.session.accountEmail, function (err, accountInfo) {
                     if (err) {
                         //To do : Add Error Page
@@ -207,11 +184,8 @@ var procSignIn = function(req,res){
                         //Temp Error Page
                     } else {
                         if (accountInfo.length > 0) {
-                            console.log('checkPassword for ' + req.session.accountEmail);
-                            console.log('password ' + paramPassword);
-                            console.dir(accountInfo[0])
                             var account = new accountModel({'email':req.session.accountEmail})
-                            var auth = account.authenticate(paramPassword,accountInfo[0]._doc.inSalt, accountInfo[0]._doc.hashed_password);
+                            var auth = account.authenticate(paramPassword,accountInfo[0]._doc.salt, accountInfo[0]._doc.hashed_password);
                             if (auth) {
                                 context.accountEmail = req.session.accountEmail;
                                 context.accountName = req.session.accountName;
