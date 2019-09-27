@@ -187,8 +187,11 @@ var procSignIn = function(req,res){
                             var account = new accountModel({'email':req.session.accountEmail})
                             var auth = account.authenticate(paramPassword,accountInfo[0]._doc.salt, accountInfo[0]._doc.hashed_password);
                             if (auth) {
+                                req.session.authorized = true;
+
                                 context.accountEmail = req.session.accountEmail;
                                 context.accountName = req.session.accountName;
+                                context.authorized = req.session.authorized;
 
                                 console.log('Login Success');
                                 req.app.render('index', context, function (err, html) {

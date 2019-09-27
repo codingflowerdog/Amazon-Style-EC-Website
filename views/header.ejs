@@ -4,6 +4,12 @@
             location.href='/dispSignUp'
         })
     })
+
+    $(function(){
+        $('#account').on('click',function(){
+            location.href='/dispAccount'
+        })
+    })
 </script>
 <!-- Sidebar Left -->
 <div class="modal fade left" id="mySidebar" tabindex="-1" role="dialog">
@@ -102,9 +108,15 @@
                 <span class="menu p-1 align-middle text-white font-weight-bold">
                     주문이력
                 </span>
+                <% if(authorized === true){ %>
+                <span id="account" class="menu p-1 align-middle text-white font-weight-bold">
+                    개인정보
+                </span>
+                <% } else { %>
                 <span id="signUp" class="menu p-1 align-middle text-white font-weight-bold">
                     로그인
                 </span>
+                <% } %>
                 <span class="menu p-1 align-middle text-white font-weight-bold">
                     인기상품
                 </span>
