@@ -22,7 +22,7 @@
             </div>
             <div class="form border p-3">
                 <span>Sign In</span>
-                <%if(!accountEmail){%>
+                <%if(!session.accountEmail){%>
                 <form action="/procSignIn" method="post">
                     <div class="form-group">
                         <label for="email">Email Account</label>

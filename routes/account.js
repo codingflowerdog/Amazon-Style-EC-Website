@@ -127,7 +127,8 @@ var procSignIn = function(req,res){
     var database = req.app.get('database');
     var accountSchema = database.accountSchema;
     var accountModel = database.accountModel;
-    var context = {}
+    var context = {
+    }
 
     context.title = 'HappyMall - SignIn'
 
@@ -153,8 +154,7 @@ var procSignIn = function(req,res){
                             req.session.accountEmail = paramEmail;
                             req.session.accountName = accountInfo[0]._doc.name;
 
-                            context.accountEmail = req.session.accountEmail;
-                            context.accountName = req.session.accountName;
+                            context.session = req.session;
 
                             req.app.render('signIn', context, function (err, html) {
                                 if (err) {
@@ -189,9 +189,7 @@ var procSignIn = function(req,res){
                             if (auth) {
                                 req.session.authorized = true;
 
-                                context.accountEmail = req.session.accountEmail;
-                                context.accountName = req.session.accountName;
-                                context.authorized = req.session.authorized;
+                                context.session = req.session;
 
                                 console.log('Login Success');
                                 req.app.render('index', context, function (err, html) {
@@ -201,8 +199,7 @@ var procSignIn = function(req,res){
                                     res.end(html)
                                 })
                             } else {
-                                context.accountEmail = req.session.accountEmail;
-                                context.accountName = req.session.accountName;
+                                context.session = req.session;
                                 //To do : Add Error Proc
                                 req.app.render('signIn', context, function (err, html) {
                                     if (err) {
