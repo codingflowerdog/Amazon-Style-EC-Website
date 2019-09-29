@@ -95,10 +95,8 @@ var procSignUp = function(req,res){
 var dispSignIn = function(req,res){
 
     var paramEmail = req.body.email;
-    var mode = req.query.mode;
 
     var context = {
-        title:'HappyMall - signIn',
         session:req.session,
         accountEmail:paramEmail
     }
@@ -235,8 +233,64 @@ var procSignOut = function(req,res){
     });
 }
 
+var dispAccount = function(req,res){
+    var context = {
+        session:req.session
+    }
+
+    var database = req.app.get('database');
+    var accountSchema = database.accountSchema;
+    var accountModel = database.accountModel;
+
+    var edit = req.query.edit;
+
+    if(database){
+        var account = accountModel.findByEmail(req.session.accountEmail,function(err,accountInfo){
+            if(err){
+                //To do : add error page
+                console.err('사용자 검색 에러')
+            } else {
+                if(accountInfo.length > 0){
+                    context.email = accountInfo[0]._doc.email;
+                    context.name = accountInfo[0]._doc.name;
+                    context.phone = accountInfo[0]._doc.phone;
+                    context.password = '********';
+
+                    if(req.session.authorized){
+                        req.app.render('account',context,function(err,html){
+                            if(err){throw err};
+                            res.end(html);
+                        })
+                    } else{
+                        dispSignIn(req,res)
+                    }
+
+
+                } else{
+                    //To do : Email not found
+                    console.log('Email not found');
+                    req.app.render('signIn', context, function (err, html) {
+                        if (err) {
+                            throw err;
+                        }
+                        res.end(html)
+                    })
+                }
+            }
+        })
+    } else{
+        //To do : Make Error Page
+        console.log('database is closed');
+        res.writeHead('200',{'Content-Type':'text/html;charset=utf8'})
+        res.write('<h2>데이터베이스 연결 실패</h2>')
+        res.write(err.stack)
+        res.end();
+    }
+}
+
 module.exports.dispSignUp = dispSignUp;
 module.exports.dispSignIn = dispSignIn;
+module.exports.dispAccount = dispAccount;
 
 module.exports.procSignUp = procSignUp;
 module.exports.procSignIn = procSignIn;

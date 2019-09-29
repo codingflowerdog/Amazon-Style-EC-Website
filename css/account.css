@@ -69,3 +69,18 @@
     background-color: #dddddd;
     width:100%;
 }
+
+.account{
+    width:90%;
+    max-width:700px;
+    margin:100px auto 0 auto;
+}
+
+.account>span{
+    font-size:30px;
+}
+
+.edit{
+    width:70px;
+    height:48px;
+}
