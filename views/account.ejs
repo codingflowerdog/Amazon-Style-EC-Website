@@ -5,11 +5,124 @@
     <title>HappyMall</title>
     <%include common.ejs%>
     <link rel="stylesheet" href="/css/account.css">
+    <script>
+        $(function(){
+            $('#editEmail').on('click',function(){
+                location.href='/dispAccount?edit=email'
+            })
+            $('#editName').on('click',function(){
+                location.href='/dispAccount?edit=name'
+            })
+            $('#editPhone').on('click',function(){
+                location.href='/dispAccount?edit=phone'
+            })
+            $('#editPassword').on('click',function(){
+                location.href='/dispAccount?edit=password'
+            })
+        })
+    </script>
 </head>
 <body>
     <%include header.ejs%>
     <div class="container">
         <div class="account">
+            <% if(edit === 'email'){ %>
+            <span>이메일 변경</span>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="float-left explanation">
+                            HappyMall 계정의 이메일을 변경하고자 하시는 분은 아래에 이름을 입력하시고 변경 버튼을 눌러주세요.
+                        </div>
+                        <form action="/procEditAccount?edit=email" method="post">
+                            <div class="form-group">
+                                <label>현재 이메일</label>
+                                <input type="email" class="form-control account-form" id="email" value="<%=email%>">
+                            </div>
+                            <div class="form-group">
+                                <label>변경 할 이메일</label>
+                                <input type="email" class="form-control account-form" id="changeEmail">
+                            </div>
+                            <div class="form-group">
+                                <label>현재 비밀번호</label>
+                                <input type="password" class="form-control account-form" id="password">
+                            </div>
+                            <button type="submit" class="btn btn-change">변경</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <% } else if(edit === 'name'){%>
+            <span>이름 변경</span>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="float-left explanation">
+                            HappyMall 계정의 이름을 변경하고자 하시는 분은 아래에 이름을 입력하시고 변경 버튼을 눌러주세요.
+                        </div>
+                        <form action="/procEditAccount?edit=name" method="post">
+                            <div class="form-group">
+                                <label>현재 이름</label>
+                                <input type="email" class="form-control account-form" id="name" value="<%=name%>">
+                            </div>
+                            <div class="form-group">
+                                <label>변경 할 이름</label>
+                                <input type="email" class="form-control account-form" id="changeName">
+                            </div>
+                            <button type="submit" class="btn btn-change">변경</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <% } else if(edit === 'phone'){%>
+            <span>전화번호 변경</span>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="float-left explanation">
+                            HappyMall 계정의 전화번호를 변경하고자 하시는 분은 아래에 이름을 입력하시고 변경 버튼을 눌러주세요.
+                        </div>
+                        <form action="/procEditAccount?edit=phone" method="post">
+                            <div class="form-group">
+                                <label>현재 전화번호</label>
+                                <input type="email" class="form-control account-form" id="phone" value="<%=email%>">
+                            </div>
+                            <div class="form-group">
+                                <label>변경 할 전화번호</label>
+                                <input type="email" class="form-control account-form" id="changePhone">
+                            </div>
+                            <button type="submit" class="btn btn-change">변경</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <% } else if(edit === 'password'){%>
+            <span>비밀번호 변경</span>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="float-left explanation">
+                            HappyMall 계정의 비밀번호 변경하고자 하시는 분은 아래에 이름을 입력하시고 변경 버튼을 눌러주세요.
+                        </div>
+                        <form action="/procEditAccount?edit=password" method="post">
+                            <div class="form-group">
+                                <label>현재 비밀번호</label>
+                                <input type="password" class="form-control account-form" id="password">
+                            </div>
+                            <div class="form-group">
+                                <label>변경 할 비밀번호</label>
+                                <input type="password" class="form-control account-form" id="changePassword">
+                            </div>
+                            <div class="form-group">
+                                <label>변경 할 비밀번호 재입력</label>
+                                <input type="password" class="form-control account-form" id="changePasswordRepeat">
+                            </div>
+                            <button type="submit" class="btn btn-change">변경</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <% } else {%>
             <span>계정정보</span>
             <div class="card">
                 <ul class="list-group list-group-flush">
@@ -19,7 +132,7 @@
                             <div><%=email%></div>
                         </div>
                         <div class="float-right">
-                            <button type="button" class="edit">편집</button>
+                            <button type="button" class="edit" id="editEmail">편집</button>
                         </div>
                     </li>
                     <li class="list-group-item">
@@ -28,7 +141,7 @@
                             <div><%=name%></div>
                         </div>
                         <div class="float-right">
-                            <button type="button" class="edit">편집</button>
+                            <button type="button" class="edit" id="editName">편집</button>
                         </div>
                     </li>
                     <li class="list-group-item">
@@ -37,7 +150,7 @@
                             <div><%=phone%></div>
                         </div>
                         <div class="float-right">
-                            <button type="button" class="edit">편집</button>
+                            <button type="button" class="edit" id="editPhone">편집</button>
                         </div>
                     </li>
                     <li class="list-group-item">
@@ -46,11 +159,12 @@
                             <div><%=password%></div>
                         </div>
                         <div class="float-right">
-                            <button type="button" class="edit">편집</button>
+                            <button type="button" class="edit" id="editPassword">편집</button>
                         </div>
                     </li>
                 </ul>
             </div>
+            <% } %>
         </div>
     </div>
 </body>

@@ -255,6 +255,7 @@ var dispAccount = function(req,res){
                     context.name = accountInfo[0]._doc.name;
                     context.phone = accountInfo[0]._doc.phone;
                     context.password = '********';
+                    context.edit = edit;
 
                     if(req.session.authorized){
                         req.app.render('account',context,function(err,html){
@@ -288,6 +289,30 @@ var dispAccount = function(req,res){
     }
 }
 
+var procAccount = function(req,res){
+    var context = {
+        session:req.session
+    }
+    var edit = req.query.edit;
+    var database = req.app.get('database');
+
+    if(database){
+        var accountSchema = database.accountSchema;
+        var accountModel = database.accountModel;
+        if(edit === 'email'){
+
+        } else {
+            req.app.render('account',context,function(err,html){
+                if(err){throw err};
+                res.end(html);
+            })
+        }
+    } else {
+        //To do : Add Error Page
+    }
+
+}
+
 module.exports.dispSignUp = dispSignUp;
 module.exports.dispSignIn = dispSignIn;
 module.exports.dispAccount = dispAccount;
@@ -295,3 +320,4 @@ module.exports.dispAccount = dispAccount;
 module.exports.procSignUp = procSignUp;
 module.exports.procSignIn = procSignIn;
 module.exports.procSignOut = procSignOut;
+module.exports.procAccount = procAccount;

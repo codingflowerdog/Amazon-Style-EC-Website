@@ -15,7 +15,8 @@ module.exports = {
         {file:'./account', path:'/dispAccount', method:'dispAccount', type:'get'},
         {file:'./account', path:'/procSignUp', method:'procSignUp', type:'post'},
         {file:'./account', path:'/procSignIn', method:'procSignIn', type:'post'},
-        {file:'./account', path:'/procSignOut', method:'procSignOut', type:'post'}
+        {file:'./account', path:'/procSignOut', method:'procSignOut', type:'post'},
+        {file:'./account', path:'/procAccount', method:'procAccount', type:'post'}
     ]
 
 }
