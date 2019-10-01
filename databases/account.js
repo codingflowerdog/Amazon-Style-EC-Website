@@ -30,7 +30,9 @@ schema.createSchema = function(mongoose){
         return this.find({'email':email},callback)
     })
 
-    accountSchema.method('')
+    accountSchema.method('updateByEmail',function(email,changeEmail,callback){
+        return this.update({'email':email},{$set : {'email':changeEmail}},callback);
+    })
 
     accountSchema.method('createAccount',function(callback) {
         return this.save(callback);

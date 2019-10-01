@@ -300,6 +300,33 @@ var procAccount = function(req,res){
         var accountSchema = database.accountSchema;
         var accountModel = database.accountModel;
         if(edit === 'email'){
+            var paramEmail = req.body.email;
+            var paramChangeEmail = req.body.changeEmail;
+            var paramPassword = req.body.password;
+
+            accountModel.findByEmail(paramEmail,function(err,accountInfo){
+                if(err){throw err};
+
+                if(accountInfo.length > 0){
+
+                    var auth = accountModel.authenticate(accountInfo[0]._doc.email, accountInfo[0]._doc.salt,accountInfo[0]._doc.hashed_password);
+
+                    if(auth){
+                        // todo : add email change proc
+                        accountModel.updateByEmail(paramEmail,paramChangeEmail,function(err,accountInfo){
+                            if(err){throw err};
+
+
+                        })
+                    } else {
+                        // todo : add error page
+                    }
+
+
+                } else {
+                    //todo : add error page
+                }
+            })
 
         } else {
             req.app.render('account',context,function(err,html){
