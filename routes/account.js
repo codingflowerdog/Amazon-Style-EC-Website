@@ -313,9 +313,14 @@ var procAccount = function(req,res){
 
                     if(auth){
                         // todo : add email change proc
-                        accountModel.updateByEmail(paramEmail,paramChangeEmail,function(err,accountInfo){
+                        accountModel.updateEmail(paramEmail,paramChangeEmail,function(err,accountInfo){
                             if(err){throw err};
 
+                            req.app.render('main',context,function(err,html){
+                                if(err){throw err};
+
+                                res.end(html);
+                            })
 
                         })
                     } else {

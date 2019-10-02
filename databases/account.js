@@ -30,8 +30,21 @@ schema.createSchema = function(mongoose){
         return this.find({'email':email},callback)
     })
 
-    accountSchema.method('updateByEmail',function(email,changeEmail,callback){
+    accountSchema.method('updateEmail',function(email,changeEmail,callback){
         return this.update({'email':email},{$set : {'email':changeEmail}},callback);
+    })
+
+    accountSchema.method('updateName',function(email,changeName,callback){
+        return this.update({'email':email},{$set : {'name':changeName}},callback);
+    })
+
+    accountSchema.method('updatePhone',function(email,changePhone,callback){
+        return this.update({'email':email},{$set : {'phone':changePhone}},callback);
+    })
+
+    accountSchema.method('updatePassword',function(email,changePassword,callback){
+        // todo : add changePassword Proc
+        //return this.update({'email':email},{$set : {'hashed_password':changePhone}},callback);
     })
 
     accountSchema.method('createAccount',function(callback) {
