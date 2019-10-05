@@ -128,7 +128,6 @@ var procSignIn = function(req,res){
     var context = {
     }
 
-    context.title = 'HappyMall - SignIn'
 
     if(database){
         if(req.session.authorized === true){
@@ -140,7 +139,7 @@ var procSignIn = function(req,res){
                     req.session.destroy();
                 }
                 console.log('ParamEmail :: ' + paramEmail);
-                accountModel.findByEmail(paramEmail, function (err, accountInfo) {
+                accountSchema.findByEmail(paramEmail, function (err, accountInfo) {
                     if (err) {
                         //To do : Add Error Page
                         console.err('사용자 인증 에러');
@@ -174,7 +173,7 @@ var procSignIn = function(req,res){
                 })
             } else{
                 //To do : Check Password
-                accountModel.findByEmail(req.session.accountEmail, function (err, accountInfo) {
+                accountSchema.findByEmail(req.session.accountEmail, function (err, accountInfo) {
                     if (err) {
                         //To do : Add Error Page
                         console.err('사용자 인증 에러');
@@ -299,18 +298,31 @@ var procAccount = function(req,res){
     if(database){
         var accountSchema = database.accountSchema;
         var accountModel = database.accountModel;
-        if(edit === 'email'){
-            var paramEmail = req.body.email;
-            var paramChangeEmail = req.body.changeEmail;
-            var paramPassword = req.body.password;
 
-            accountModel.findByEmail(paramEmail,function(err,accountInfo){
-                if(err){throw err};
+        var paramEmail = req.session.accountEmail;
 
-                if(accountInfo.length > 0){
+        accountModel.findByEmail(paramEmail,function(err,accountInfo){
+            if(err){throw err};
 
-                    var auth = accountModel.authenticate(accountInfo[0]._doc.email, accountInfo[0]._doc.salt,accountInfo[0]._doc.hashed_password);
+            if(accountInfo.length > 0){
 
+                if(edit === 'email'){
+                    var paramEmail = req.body.email;
+                    var paramChangeEmail = req.body.changeEmail;
+                    accountModel.findByEmail
+                    accountModel.updateEmail(paramEmail,paramChangeEmail,function(err,accountInfo){
+
+                    })
+
+
+
+                } else if(edit === 'name'){
+
+
+                } else if(edit === 'phone'){
+
+
+                } else if(edit === 'password'){
                     if(auth){
                         // todo : add email change proc
                         accountModel.updateEmail(paramEmail,paramChangeEmail,function(err,accountInfo){
@@ -327,11 +339,21 @@ var procAccount = function(req,res){
                         // todo : add error page
                     }
 
-
                 } else {
-                    //todo : add error page
+
                 }
-            })
+                //var auth = accountModel.authenticate(accountInfo[0]._doc.email, accountInfo[0]._doc.salt,accountInfo[0]._doc.hashed_password);
+
+
+
+
+            } else {
+                //todo : add error page
+            }
+        })
+
+        if(edit === 'email'){
+
 
         } else {
             req.app.render('account',context,function(err,html){

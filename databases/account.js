@@ -44,6 +44,7 @@ schema.createSchema = function(mongoose){
 
     accountSchema.method('updatePassword',function(email,changePassword,callback){
         // todo : add changePassword Proc
+
         var account = new accountModel({'email':req.session.accountEmail})
         //return this.update({'email':email},{$set : {'hashed_password':changePhone}},callback);
     })
