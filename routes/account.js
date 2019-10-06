@@ -139,7 +139,7 @@ var procSignIn = function(req,res){
                     req.session.destroy();
                 }
                 console.log('ParamEmail :: ' + paramEmail);
-                accountSchema.findByEmail(paramEmail, function (err, accountInfo) {
+                accountModel.findByEmail(paramEmail, function (err, accountInfo) {
                     if (err) {
                         //To do : Add Error Page
                         console.err('사용자 인증 에러');
@@ -173,7 +173,7 @@ var procSignIn = function(req,res){
                 })
             } else{
                 //To do : Check Password
-                accountSchema.findByEmail(req.session.accountEmail, function (err, accountInfo) {
+                accountModel.findByEmail(req.session.accountEmail, function (err, accountInfo) {
                     if (err) {
                         //To do : Add Error Page
                         console.err('사용자 인증 에러');
@@ -244,7 +244,7 @@ var dispAccount = function(req,res){
     var edit = req.query.edit;
 
     if(database){
-        var account = accountModel.findByEmail(req.session.accountEmail,function(err,accountInfo){
+        accountModel.findByEmail(req.session.accountEmail,function(err,accountInfo){
             if(err){
                 //To do : add error page
                 console.err('사용자 검색 에러')
@@ -304,39 +304,107 @@ var procAccount = function(req,res){
         accountModel.findByEmail(paramEmail,function(err,accountInfo){
             if(err){throw err};
 
+            console.log('find accouny by email')
             if(accountInfo.length > 0){
 
+                context.email = accountInfo[0]._doc.email;
+                context.name = accountInfo[0]._doc.name;
+                context.phone = accountInfo[0]._doc.phone;
+                context.password = '********';
+                context.edit = '';
+                c
                 if(edit === 'email'){
                     var paramEmail = req.body.email;
                     var paramChangeEmail = req.body.changeEmail;
-                    accountModel.findByEmail
-                    accountModel.updateEmail(paramEmail,paramChangeEmail,function(err,accountInfo){
+                    var paramPassword = req.body.password;
 
-                    })
+                    var account = new accountModel({'email':paramEmail});
 
+                    var auth = account.authenticate(paramPassword,accountInfo[0]._doc.salt,accountInfo[0]._doc.hashed_password);
 
-
-                } else if(edit === 'name'){
-
-
-                } else if(edit === 'phone'){
-
-
-                } else if(edit === 'password'){
                     if(auth){
-                        // todo : add email change proc
-                        accountModel.updateEmail(paramEmail,paramChangeEmail,function(err,accountInfo){
+                        accountModel.updateEmail(paramEmail,paramChangeEmail,function(err,changedAccountInfo){
                             if(err){throw err};
 
-                            req.app.render('main',context,function(err,html){
-                                if(err){throw err};
+                            req.session.accountEmail = paramChangeEmail;
 
+                            context.email = paramChangeEmail;
+
+                            console.log('Email Change Success');
+                            req.app.render('account',context,function(err,html){
+                                if(err){throw err};
                                 res.end(html);
                             })
-
                         })
                     } else {
-                        // todo : add error page
+                        //todo : add message
+                        console.log('Email Change Fail - wrong password')
+                        req.app.render('account',context,function(err,html){
+                            if(err){throw err};
+                            res.end(html);
+                        })
+                    }
+                } else if(edit === 'name'){
+                    var paramChangeName = req.body.changeName;
+
+                    accountModel.updateName(paramEmail,paramChangeName,function(err,changedAccountInfo){
+                        if(err){throw err};
+
+                        req.session.accountEmail = paramChangeEmail;
+
+                        context.email = paramChangeEmail;
+
+                        console.log('Name Change Success');
+                        req.app.render('account',context,function(err,html){
+                            if(err){throw err};
+                            res.end(html);
+                        })
+                    })
+                } else if(edit === 'phone'){
+                    var paramChangePhone = req.body.changePhone;
+
+                    accountModel.updatePhone(paramEmail,paramChangePhone,function(err,changedAccountInfo){
+                        if(err){throw err};
+
+                        req.session.accountEmail = paramChangeEmail;
+
+                        context.email = paramChangeEmail;
+
+                        console.log('Phone Change Success');
+                        req.app.render('account',context,function(err,html){
+                            if(err){throw err};
+                            res.end(html);
+                        })
+                    })
+
+                } else if(edit === 'password'){
+                    var paramEmail = req.session.accountEmail;
+                    var paramPassword = req.body.password;
+                    var paramChangePassword = req.body.changePassword;
+
+                    var account = new accountModel({'email':paramEmail});
+                    var auth = account.authenticate(paramPassword,accountInfo[0]._doc.salt,accountInfo[0]._doc.hashed_password);
+
+                    if(auth){
+                        account.salt = account.makeSalt();
+                        account.hashed_password = account.encryptPassword(paramChangePassword);
+
+                        accountModel.updatePassword(paramEmail,account.hashed_password,account.salt,function(err,changedAccountInfo){
+                            if(err){throw err};
+
+                            console.log('password Change Success');
+                            req.app.render('account',context,function(err,html){
+                                if(err){throw err};
+                                res.end(html);
+                            })
+                        })
+                    } else {
+                        //todo : add message
+                        console.log('password Change Fail - wrong password')
+                        req.app.render('account',context,function(err,html){
+                            if(err){throw err};
+                            res.end(html);
+                        })
                     }
 
                 } else {

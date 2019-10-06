@@ -30,23 +30,28 @@ schema.createSchema = function(mongoose){
         return this.find({'email':email},callback)
     })
 
-    accountSchema.method('updateEmail',function(email,changeEmail,callback){
-        return this.update({'email':email},{$set : {'email':changeEmail}},callback);
+    accountSchema.static('updateEmail',function(email,changeEmail,callback){
+        console.log(email);
+        console.log(changeEmail);
+        this.updateOne({'email':email},{$set : {'email':changeEmail}},callback);
     })
 
-    accountSchema.method('updateName',function(email,changeName,callback){
+    // accountSchema.methods.updateEmail = async function(email,changeEmail,callback){
+    //     console.log(email);
+    //     console.log(changeEmail);
+    //     await this.updateOne({'email':email},{$set : {'email':changeEmail}},callback);
+    // }
+
+    accountSchema.static('updateName',function(email,changeName,callback){
         return this.update({'email':email},{$set : {'name':changeName}},callback);
     })
 
-    accountSchema.method('updatePhone',function(email,changePhone,callback){
+    accountSchema.static('updatePhone',function(email,changePhone,callback){
         return this.update({'email':email},{$set : {'phone':changePhone}},callback);
     })
 
-    accountSchema.method('updatePassword',function(email,changePassword,callback){
-        // todo : add changePassword Proc
-
-        var account = new accountModel({'email':req.session.accountEmail})
-        //return this.update({'email':email},{$set : {'hashed_password':changePhone}},callback);
+    accountSchema.static('updatePassword',function(email,changePassword,callback){
+        return this.update({'email':email},{$set : {'hashed_password':changePassword, 'salt':salt}},callback);
     })
 
     accountSchema.method('createAccount',function(callback) {
