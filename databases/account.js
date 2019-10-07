@@ -31,8 +31,6 @@ schema.createSchema = function(mongoose){
     })
 
     accountSchema.static('updateEmail',function(email,changeEmail,callback){
-        console.log(email);
-        console.log(changeEmail);
         this.updateOne({'email':email},{$set : {'email':changeEmail}},callback);
     })
 
@@ -43,7 +41,7 @@ schema.createSchema = function(mongoose){
     // }
 
     accountSchema.static('updateName',function(email,changeName,callback){
-        return this.update({'email':email},{$set : {'name':changeName}},callback);
+        this.updateOne({'email':email},{$set : {'name':changeName}},callback);
     })
 
     accountSchema.static('updatePhone',function(email,changePhone,callback){

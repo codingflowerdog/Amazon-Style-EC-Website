@@ -298,13 +298,13 @@ var procAccount = function(req,res){
     if(database){
         var accountSchema = database.accountSchema;
         var accountModel = database.accountModel;
+        var accountEmail = req.session.accountEmail
 
-        var paramEmail = req.session.accountEmail;
-
-        accountModel.findByEmail(paramEmail,function(err,accountInfo){
+        accountModel.findByEmail(accountEmail,function(err,accountInfo){
             if(err){throw err};
 
-            console.log('find accouny by email')
+            var paramEmail = accountInfo[0]._doc.email;
+
             if(accountInfo.length > 0){
 
                 context.email = accountInfo[0]._doc.email;
@@ -312,12 +312,10 @@ var procAccount = function(req,res){
                 context.phone = accountInfo[0]._doc.phone;
                 context.password = '********';
                 context.edit = '';
-                c
+
                 if(edit === 'email'){
-                    var paramEmail = req.body.email;
                     var paramChangeEmail = req.body.changeEmail;
                     var paramPassword = req.body.password;
-
                     var account = new accountModel({'email':paramEmail});
 
                     var auth = account.authenticate(paramPassword,accountInfo[0]._doc.salt,accountInfo[0]._doc.hashed_password);
@@ -350,13 +348,20 @@ var procAccount = function(req,res){
                     accountModel.updateName(paramEmail,paramChangeName,function(err,changedAccountInfo){
                         if(err){throw err};
 
-                        req.session.accountEmail = paramChangeEmail;
-
-                        context.email = paramChangeEmail;
+                        context.name = paramChangeName;
+                        console.log('Test')
+                        console.log(paramEmail);
+                        console.log(paramChangeName);
+                        console.dir(changedAccountInfo);
 
                         console.log('Name Change Success');
                         req.app.render('account',context,function(err,html){
-                            if(err){throw err};
+                            if(err){
+                                console.dir(err);
+                                throw err
+                            };
+
+                            console.log(context);
                             res.end(html);
                         })
                     })
@@ -366,11 +371,11 @@ var procAccount = function(req,res){
                     accountModel.updatePhone(paramEmail,paramChangePhone,function(err,changedAccountInfo){
                         if(err){throw err};
 
-                        req.session.accountEmail = paramChangeEmail;
-
-                        context.email = paramChangeEmail;
+                        context.phone = paramChangePhone;
 
                         console.log('Phone Change Success');
+
+
                         req.app.render('account',context,function(err,html){
                             if(err){throw err};
                             res.end(html);
@@ -420,17 +425,8 @@ var procAccount = function(req,res){
             }
         })
 
-        if(edit === 'email'){
-
-
-        } else {
-            req.app.render('account',context,function(err,html){
-                if(err){throw err};
-                res.end(html);
-            })
-        }
     } else {
-        //To do : Add Error Page
+        //Todo : Add Database Error Page
     }
 
 }
