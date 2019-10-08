@@ -34,12 +34,6 @@ schema.createSchema = function(mongoose){
         this.updateOne({'email':email},{$set : {'email':changeEmail}},callback);
     })
 
-    // accountSchema.methods.updateEmail = async function(email,changeEmail,callback){
-    //     console.log(email);
-    //     console.log(changeEmail);
-    //     await this.updateOne({'email':email},{$set : {'email':changeEmail}},callback);
-    // }
-
     accountSchema.static('updateName',function(email,changeName,callback){
         this.updateOne({'email':email},{$set : {'name':changeName}},callback);
     })

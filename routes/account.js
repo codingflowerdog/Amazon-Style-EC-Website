@@ -123,7 +123,6 @@ var procSignIn = function(req,res){
     var paramEmail = req.body.email;
     var paramPassword = req.body.password;
     var database = req.app.get('database');
-    var accountSchema = database.accountSchema;
     var accountModel = database.accountModel;
     var context = {
     }
@@ -238,7 +237,6 @@ var dispAccount = function(req,res){
     }
 
     var database = req.app.get('database');
-    var accountSchema = database.accountSchema;
     var accountModel = database.accountModel;
 
     var edit = req.query.edit;
