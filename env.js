@@ -18,7 +18,6 @@ module.exports = {
         {file:'./account', path:'/procSignOut', method:'procSignOut', type:'post'},
         {file:'./account', path:'/procAccount', method:'procAccount', type:'post'}
     ]
-
 }
 
 
