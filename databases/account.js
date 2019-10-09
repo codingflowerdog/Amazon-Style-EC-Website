@@ -2,6 +2,8 @@ var crypto = require('crypto')
 
 var schema = {}
 
+// Todo : Add Passport, Flash Message, Log Module
+
 schema.createSchema = function(mongoose){
     var accountSchema = new mongoose.Schema({
         name:{type:String, 'default':'', required:true},
@@ -42,7 +44,7 @@ schema.createSchema = function(mongoose){
         return this.update({'email':email},{$set : {'phone':changePhone}},callback);
     })
 
-    accountSchema.static('updatePassword',function(email,changePassword,callback){
+    accountSchema.static('updatePassword',function(email,changePassword,salt,callback){
         return this.update({'email':email},{$set : {'hashed_password':changePassword, 'salt':salt}},callback);
     })
 

@@ -1,15 +1,5 @@
 <script>
-    $(function(){
-        $('#signUp').on('click',function(){
-            location.href='/dispSignUp'
-        })
-    })
 
-    $(function(){
-        $('#account').on('click',function(){
-            location.href='/dispAccount'
-        })
-    })
 </script>
 <!-- Sidebar Left -->
 <div class="modal fade left" id="mySidebar" tabindex="-1" role="dialog">
@@ -79,7 +69,9 @@
                 </span>
             </div>
             <div class="ml-1 mr-2">
-                <span id="logo" class="text-white font-weight-bold">HappyMall</span>
+                <a href="/">
+                    <span id="logo" class="text-white font-weight-bold">HappyMall</span>
+                </a>
             </div>
         </div>
         <div class="flex-fill">
@@ -105,21 +97,29 @@
         </div>
         <div class="p-1">
             <div class="d-flex flex-wrap">
-                <span class="menu p-1 align-middle text-white font-weight-bold">
-                    주문이력
-                </span>
+                <a href="/" class="menu p-1">
+                    <span class="align-middle text-white font-weight-bold">
+                        주문이력
+                    </span>
+                </a>
                 <% if(session.authorized){ %>
-                <span id="account" class="menu p-1 align-middle text-white font-weight-bold">
-                    개인정보
+                <a href="/dispAccount" class="menu p-1">
+                    <span id="account" class="align-middle text-white font-weight-bold">
+                        개인정보
+                    </span>
+                </a>
+                <a href="/" class="menu p-1">
+                <span class="align-middle text-white font-weight-bold">
+                    상품등록
                 </span>
+                    </a>
                 <% } else { %>
-                <span id="signUp" class="menu p-1 align-middle text-white font-weight-bold">
-                    로그인
-                </span>
+                <a href="/dispSignUp" class="menu p-1">
+                    <span id="signUp" class="align-middle text-white font-weight-bold">
+                        로그인
+                    </span>
+                </a>
                 <% } %>
-                <span class="menu p-1 align-middle text-white font-weight-bold">
-                    인기상품
-                </span>
             </div>
         </div>
     </div>
