@@ -7,14 +7,12 @@
     width:80%;
 }
 
-
-
-
 .error{
     margin: 10px auto 0 auto;
     width:20%;
     min-width: 400px;
 }
+
 a:link { color: green; text-decoration: none;}
 a:visited { color: green; text-decoration: none;}
 

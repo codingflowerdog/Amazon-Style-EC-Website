@@ -1,6 +1,3 @@
-<script>
-
-</script>
 <!-- Sidebar Left -->
 <div class="modal fade left" id="mySidebar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -50,9 +47,11 @@
                     <div class="d-flex bg-white category">
                         <span class="text-normal mr-auto">계정정보</span>
                     </div>
+                    <% if(session.authorized){ %>
                     <div class="d-flex bg-white category">
                         <span class="text-normal mr-auto">로그아웃</span>
                     </div>
+                    <% } %>
                 </div>
             </div>
             </div>
@@ -60,6 +59,7 @@
     </div>
 </div>
 
+<!-- Header nav
 <nav id="nav"class="navbar navbar-expand-sm fixed-top shadow-sm bg-dark">
     <div class="container-fluid d-flex justify-content-between">
         <div class="d-flex">
@@ -97,7 +97,7 @@
         </div>
         <div class="p-1">
             <div class="d-flex flex-wrap">
-                <a href="/" class="menu p-1">
+                <a href="/dispHistory" class="menu p-1">
                     <span class="align-middle text-white font-weight-bold">
                         주문이력
                     </span>
@@ -108,11 +108,11 @@
                         개인정보
                     </span>
                 </a>
-                <a href="/" class="menu p-1">
-                <span class="align-middle text-white font-weight-bold">
-                    상품등록
-                </span>
-                    </a>
+                <a href="/procSignOut" class="menu p-1">
+                    <span class="align-middle text-white font-weight-bold">
+                        로그아웃
+                    </span>
+                </a>
                 <% } else { %>
                 <a href="/dispSignUp" class="menu p-1">
                     <span id="signUp" class="align-middle text-white font-weight-bold">

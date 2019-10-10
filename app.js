@@ -14,8 +14,6 @@ route_info.init(app,router);
 
 database.init(app,env)
 
-var server = http.createServer(app).listen(app.get('port'),function(){
+http.createServer(app).listen(app.get('port'),function(){
     console.log('amazon 서버 시작됨')
 })
-
-module.exports = app
