@@ -5,6 +5,10 @@ module.exports = {
         {
             file:'./account', collection:'account',
             schemaName:'accountSchema', modelName:'accountModel'
+        },
+        {
+            file:'./product', collection:'product',
+            schemaName:'productSchema', modelName:'productModel'
         }
     ],
     route_info:[
