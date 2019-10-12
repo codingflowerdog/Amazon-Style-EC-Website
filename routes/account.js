@@ -2,7 +2,7 @@ var dispSignUp = function(req,res){
     console.log('dispSignUp 호출됨')
 
     var context = {
-        title:'HappyMall - signUp',
+        title:'HappyMall',
         session:req.session
     }
 
@@ -12,20 +12,6 @@ var dispSignUp = function(req,res){
         res.end(html);
     })
 }
-
-var dispHistory = function(req,res){
-    var context = {
-        session:req.session
-    };
-
-    req.app.render('history',context,function(err,html){
-        if(err){throw err};
-
-        console.log('render history page');
-        res.end(html);
-    })
-}
-
 
 var createAccount = function(database,name,email,phone,password,callback){
 
@@ -446,7 +432,6 @@ var procAccount = function(req,res){
 module.exports.dispSignUp = dispSignUp;
 module.exports.dispSignIn = dispSignIn;
 module.exports.dispAccount = dispAccount;
-module.exports.dispHistory = dispHistory;
 
 module.exports.procSignUp = procSignUp;
 module.exports.procSignIn = procSignIn;

@@ -17,7 +17,8 @@ module.exports = {
         {file:'./account', path:'/dispSignIn', method:'dispSignIn', type:'get'},
         {file:'./account', path:'/dispSignIn', method:'dispSignIn', type:'post'},
         {file:'./account', path:'/dispAccount', method:'dispAccount', type:'get'},
-        {file:'./account', path:'/dispHistory', method:'dispHistory', type:'get'},
+        {file:'./product', path:'/dispHistory', method:'dispHistory', type:'get'},
+        {file:'./product', path:'/dispProduct', method:'dispProduct', type:'get'},
 
         {file:'./account', path:'/procSignUp', method:'procSignUp', type:'post'},
         {file:'./account', path:'/procSignIn', method:'procSignIn', type:'post'},
