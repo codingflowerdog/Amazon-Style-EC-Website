@@ -58,3 +58,74 @@
         </div>
     </div>
 </div>
+
+<!-- Header Navbar -->
+<nav id="nav"class="navbar navbar-expand-sm fixed-top shadow-sm bg-dark">
+    <div class="container-fluid d-flex justify-content-between">
+        <div class="d-flex">
+            <div class="mr-1">
+                <span id="hamgerger-menu" class="fas fa-bars fa-lg rounded border p-2 "
+                      data-toggle="modal" data-target="#mySidebar" aria-hidden="true">
+                </span>
+            </div>
+            <div class="ml-1 mr-2">
+                <a href="/">
+                    <span id="logo" class="text-white font-weight-bold">HappyMall</span>
+                </a>
+            </div>
+        </div>
+        <div class="flex-fill">
+            <div class="p-1">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                            모든 제품
+                        </button><div class="dropdown-menu">
+                            <a class="dropdown-item" selected="selected" href="#">모든 제품</a>
+                            <a class="dropdown-item" href="#">전자제품</a>
+                            <a class="dropdown-item" href="#">의류</a>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="search">
+                    <div class="input-group-append">
+                        <span class="btn" type="submit">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-1">
+            <div class="d-flex flex-wrap">
+                <a href="/dispHistory" class="menu p-1">
+                    <span class="align-middle text-white font-weight-bold">
+                        주문이력
+                    </span>
+                </a>
+                <% if(session.authorized){ %>
+                    <a href="/dispAccount" class="menu p-1">
+                        <span id="account" class="align-middle text-white font-weight-bold">
+                            개인정보
+                        </span>
+                    </a>
+                    <a href="/dispProduct" class="menu p-1">
+                        <span id="account" class="align-middle text-white font-weight-bold">
+                            상품등록
+                        </span>
+                    </a>
+                    <a href="/procSignOut" class="menu p-1">
+                        <span class="align-middle text-white font-weight-bold">
+                            로그아웃
+                        </span>
+                    </a>
+                <% } else { %>
+                    <a href="/dispSignUp" class="menu p-1">
+                    <span id="signUp" class="align-middle text-white font-weight-bold">
+                        로그인
+                    </span>
+                    </a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</nav>

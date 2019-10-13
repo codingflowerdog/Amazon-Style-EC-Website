@@ -13,24 +13,6 @@ var dispSignUp = function(req,res){
     })
 }
 
-var createAccount = function(database,name,email,phone,password,callback){
-
-    var account = new database.accountModel(
-        {
-            'name' : name,
-            'email' : email,
-            'phone' : phone,
-            'password' : password
-    });
-
-    account.save(function(err,createdAccount){
-        if(err){
-            callback(err,null);
-            return
-        }
-        callback(null,createdAccount)
-    })
-}
 var procSignUp = function(req,res){
     console.log('procSignUp is Called');
 
@@ -49,7 +31,14 @@ var procSignUp = function(req,res){
 
     if(database){
         if(password === checkPassword){
-            createAccount(database,name,email,phone,password,function(err,createdAccount){
+            var account = new database.accountModel({
+                'name' : name,
+                'email' : email,
+                'phone' : phone,
+                'password' : password
+            });
+
+            account.createAccount(function(err,createdAccount){
                 if(err){
                     console.err('계정 추가 중 에러 발생 : ' + err.stack);
                     //To do : Make Error Page
@@ -71,7 +60,6 @@ var procSignUp = function(req,res){
                     res.write(err.stack)
                     res.end();
                 }
-
             })
         } else{
             //To do : Make Error Page

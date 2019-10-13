@@ -23,7 +23,8 @@ module.exports = {
         {file:'./account', path:'/procSignUp', method:'procSignUp', type:'post'},
         {file:'./account', path:'/procSignIn', method:'procSignIn', type:'post'},
         {file:'./account', path:'/procSignOut', method:'procSignOut', type:'get'},
-        {file:'./account', path:'/procAccount', method:'procAccount', type:'post'}
+        {file:'./account', path:'/procAccount', method:'procAccount', type:'post'},
+        {file:'./product', path:'/procProduct', method:'procProduct', type:'post'}
     ]
 }
 
