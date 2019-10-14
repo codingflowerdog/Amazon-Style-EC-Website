@@ -10,6 +10,11 @@ var init = function(app,router){
             router.route(route.path).post(routeFile[route.method]);
         } else if(route.type == 'get'){
             router.route(route.path).get(routeFile[route.method]);
+        } else if(route.type == 'upload'){
+            console.log('upload call');
+            console.dir(app.get('upload'));
+            router.route(route.path).post(app.get('upload').single('fileName'),routeFile[route.method]);
+            console.log('upload exit');
         }
     })
     console.log('라우팅 완료');
@@ -17,7 +22,7 @@ var init = function(app,router){
     app.use('/',router);
 
     //Set Error Page
-    setErrorPage(app,router);
+    //setErrorPage(app,router);
 
 }
 

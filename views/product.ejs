@@ -20,7 +20,7 @@
         <div class="card bg-light history">
             <article class="card-body" style="max-width: 1200px;">
                 <h4 class="card-title mt-3 text-center">상품등록</h4>
-                    <form action="/procUploadProduct" method="post">
+                    <form action="/procProduct" method="post" enctype="multipart/form-data">
                         <div class="input-group mb-3 input-group-sm">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">제목</span>
@@ -46,14 +46,13 @@
                         </div>
                         <div class="form-group">
                             <label for="comment">상품설명</label>
-                            <textarea class="form-control" rows="5" id="comment"></textarea>
+                            <textarea class="form-control" rows="5" id="content" name="content"></textarea>
                         </div>
-                        <form>
-                            <div class="custom-file input-group-sm">
-                                <input type="file" class="custom-file-input" id="customFile" name="fileName">
-                                <label class="custom-file-label" for="customFile">File Upload</label>
-                            </div>
-                        </form>
+                        <div class="custom-file input-group-sm">
+                            <input type="file" class="custom-file-input" id="customFile" name="fileName">
+                            <label class="custom-file-label" for="customFile">File Upload</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">등록하기</button>
                     </form>
             </article>
         </div>

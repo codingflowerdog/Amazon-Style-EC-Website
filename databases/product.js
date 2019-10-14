@@ -5,7 +5,8 @@ schema.createSchema = function(mongoose){
         title:{type:String, 'default':'', required:true},
         category:{type:String, 'default':'', required:true},
         price:{type:Number, required:true, 'default':0},
-        filepath:{type:String, 'default':''}
+        content:{type:String, 'default':'', required:true},
+        filename:{type:String, 'default':''}
     });
 
     productSchema.static('findById',function(id,callback){
