@@ -2,6 +2,7 @@ var schema = {}
 
 schema.createSchema = function(mongoose){
     var productSchema = new mongoose.Schema({
+        writer:{type:String, 'default':'', required:true},
         title:{type:String, 'default':'', required:true},
         category:{type:String, 'default':'', required:true},
         price:{type:Number, required:true, 'default':0},

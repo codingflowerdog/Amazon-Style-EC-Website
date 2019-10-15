@@ -86,7 +86,8 @@ var dispSignIn = function(req,res){
 
     var context = {
         session:req.session,
-        accountEmail:paramEmail
+        accountEmail:paramEmail,
+        message:req.flash('message')
     }
 
     console.log(paramEmail)
@@ -103,8 +104,6 @@ var dispSignIn = function(req,res){
             res.end(html);
         })
     }
-
-
 }
 
 var procSignIn = function(req,res){
@@ -113,6 +112,8 @@ var procSignIn = function(req,res){
     var database = req.app.get('database');
     var accountModel = database.accountModel;
     var context = {
+        message:req.flash('message'),
+        session:req.session
     }
 
 
@@ -138,8 +139,6 @@ var procSignIn = function(req,res){
                             req.session.accountEmail = paramEmail;
                             req.session.accountName = accountInfo[0]._doc.name;
 
-                            context.session = req.session;
-
                             req.app.render('signIn', context, function (err, html) {
                                 if (err) {
                                     throw err;
@@ -149,6 +148,10 @@ var procSignIn = function(req,res){
                         } else {
                             //To do : Login Failed
                             console.log('Email not found');
+
+                            req.flash('message','이메일을 찾을 수 없습니다.');
+                            context.message = req.flash('message');
+
                             req.app.render('signIn', context, function (err, html) {
                                 if (err) {
                                     throw err;
@@ -173,8 +176,6 @@ var procSignIn = function(req,res){
                             if (auth) {
                                 req.session.authorized = true;
 
-                                context.session = req.session;
-
                                 console.log('Login Success');
                                 req.app.render('index', context, function (err, html) {
                                     if (err) {
@@ -183,8 +184,9 @@ var procSignIn = function(req,res){
                                     res.end(html)
                                 })
                             } else {
-                                context.session = req.session;
                                 //To do : Add Error Proc
+                                req.flash('message','비밀번호가 일치하지 않습니다.');
+                                context.message = req.flash('message');
                                 req.app.render('signIn', context, function (err, html) {
                                     if (err) {
                                         throw err;

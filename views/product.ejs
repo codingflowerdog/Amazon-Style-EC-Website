@@ -31,7 +31,7 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputGroupSelect01">분류</label>
                             </div>
-                            <select class="custom-select" id="inputGroupSelect01">
+                            <select class="custom-select" id="category" name="category">
                                 <option selected>분류를 선택해주세요</option>
                                 <% for(var i = 0; i < category.length; i++){ %>
                                     <option value="<%=category[i][1]%>"><%=category[i][0]%></option>
@@ -52,7 +52,7 @@
                             <input type="file" class="custom-file-input" id="customFile" name="fileName">
                             <label class="custom-file-label" for="customFile">File Upload</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">등록하기</button>
+                        <button type="submit" class="btn btn-primary mt-2">등록하기</button>
                     </form>
             </article>
         </div>

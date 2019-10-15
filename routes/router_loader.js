@@ -11,10 +11,7 @@ var init = function(app,router){
         } else if(route.type == 'get'){
             router.route(route.path).get(routeFile[route.method]);
         } else if(route.type == 'upload'){
-            console.log('upload call');
-            console.dir(app.get('upload'));
             router.route(route.path).post(app.get('upload').single('fileName'),routeFile[route.method]);
-            console.log('upload exit');
         }
     })
     console.log('라우팅 완료');

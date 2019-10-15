@@ -4,27 +4,22 @@ var bodyParser = require('body-parser');
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser');
 var multer = require('multer');
-var fs = require('fs');
-var fileUpload = require('express-fileupload')
+var flash    = require('connect-flash');
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-})
-
-var upload = multer({ storage: multer.diskStorage({
+var upload = multer({
+    storage: multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, 'uploads/')
         },
         filename: function (req, file, cb) {
-            cb(null, + Date.now() + '_' + file.originalname)
+            cb(null, req.session.accountEmail + '_' + Date.now() + '_' + file.originalname)
         }
-    }) })
-//var upload = multer({ dest: 'uploads/' })
+    }),
+    limits:{
+        files:1,
+        fileSize:1024*1024*10
+    }
+})
 
 
 var init = function(app,env){
@@ -40,36 +35,7 @@ var init = function(app,env){
         saveUninitialized:true
     }));
     app.use('/uploads', static(path.join(__dirname,'uploads')));
-
-    var storage = multer.diskStorage({
-        destination: function(req, file, callback){
-            callback(null, 'uploads')
-        },
-        filename: function(req, file, callback){
-            callback(null, file.originalname + Date.now())
-        }
-    });
-
-    //todo : change to express-fileupload
-    // var upload = multer({
-    //     stoage: multer.diskStorage({
-    //         destination: function (req, file, callback) {
-    //             callback(null, 'uploads')
-    //         },
-    //         filename: function (req, file, callback) {
-    //             callback(null, file.originalname + Date.now())
-    //         }
-    //     }),
-    //     limits:{
-    //         files: 10,
-    //         fileSize: 1024*1024*10
-    //     }
-    // });
-
-    // app.use(fileUpload({
-    //     limits: { fileSize: 50 * 1024 * 1024 },
-    //     tempFileDir : 'uploads/'
-    // }));
+    app.use(flash());
 
     app.set('upload',upload);
 

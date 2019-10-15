@@ -13,6 +13,9 @@
                 <span>HappyMall</span>
             </div>
             <div class="form border p-3">
+                <% if(message.length>0){ %>
+                    <div class="alert alert-danger"><%= message %></div>
+                <% } %>
                 <span>Sign In</span>
                 <%if(!session.accountEmail){%>
                 <form action="/procSignIn" method="post">

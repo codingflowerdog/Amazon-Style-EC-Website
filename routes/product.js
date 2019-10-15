@@ -34,32 +34,6 @@ var dispProduct = function(req,res){
     })
 }
 
-// var upload = function (req, res) {
-//     console.log('called upload method');
-//     var deferred = Q.defer();
-//     var storage = multer.diskStorage({
-//         // 서버에 저장할 폴더
-//         destination: function (req, file, callback) {
-//             callback(null, imagePath);
-//         },
-//         // 서버에 저장할 파일 명
-//         filename: function (req, file, callback) {
-//             console.log('filename setting');
-//             file.uploadedFile = {
-//                 name: req.body.filename,
-//                 ext: file.mimetype.split('/')[1]
-//             };
-//             callback(null, file.uploadedFile.name + '.' + file.uploadedFile.ext);
-//         }
-//     });
-//
-//     var upload = multer({ storage: storage }).single('filename');
-//     upload(req, res, function (err) {
-//         if (err) deferred.reject();
-//         else deferred.resolve(req.file.uploadedFile);
-//     });
-//     return deferred.promise;
-// };
 
 var procProduct = function(req,res){
     var context = {
@@ -76,60 +50,47 @@ var procProduct = function(req,res){
         //todo : add product proc
         console.log('database connected');
 
-        var paramTitle = req.body.title;
-        var paramCategory = req.body.category;
-        var paramPrice = req.body.price;
-        var paramContent = req.body.content;
-        var paramFileName = req.body.filename;
 
-        var product = new database.productModel({
-            'title':paramTitle,
-            'category':paramCategory,
-            'price':paramPrice,
-            'content':paramContent,
-            'filename':paramFileName
-        });
 
         console.log('file log');
         const file = req.file
         if (!file) {
-            const error = new Error('Please upload a file')
-            error.httpStatusCode = 400
-            return next(error)
+            res.writeHead('200',{'Content-Type':'text/html;charset=utf8'})
+            res.write('<h2>이미지 없음</h2>')
+            res.write(err.stack)
+            res.end();
+        } else {
+            var paramWriter = req.session.accountEmail;
+            var paramTitle = req.body.title;
+            var paramCategory = req.body.category;
+            var paramPrice = req.body.price;
+            var paramContent = req.body.content;
+            var paramFileName = req.file.filename;
+
+            var product = new database.productModel({
+                'writer':paramWriter,
+                'title':paramTitle,
+                'category':paramCategory,
+                'price':paramPrice,
+                'content':paramContent,
+                'filename':paramFileName
+            });
+
+            product.uploadProduct(function(err,uploadedProduct){
+                if(err){throw err;}
+
+                if(uploadedProduct){
+                    res.writeHead('200',{'Content-Type':'text/html;charset=utf8'})
+                    res.write('<h2>상품 등록 성공</h2>')
+                    res.end();
+                } else{
+                    res.writeHead('200',{'Content-Type':'text/html;charset=utf8'})
+                    res.write('<h2>상품 등록 실패</h2>')
+                    res.write(err.stack)
+                    res.end();
+                }
+            })
         }
-        res.send(file)
-
-        // upload(req, res).then(function (file) {
-        //     console.log('File Info');
-        //     console.dir(file)
-        //     if(file){
-        //
-        //         console.dir(file);
-        //
-        //         product.uploadProduct(function(err,uploadedProduct){
-        //             if(err){throw err;}
-        //
-        //             if(uploadedProduct){
-        //                 res.writeHead('200',{'Content-Type':'text/html;charset=utf8'})
-        //                 res.write('<h2>상품 등록 성공</h2>')
-        //                 res.end();
-        //             } else{
-        //                 res.writeHead('200',{'Content-Type':'text/html;charset=utf8'})
-        //                 res.write('<h2>상품 등록 실패</h2>')
-        //                 res.write(err.stack)
-        //                 res.end();
-        //             }
-        //         })
-        //     } else {
-        //         console.log('image file does not exist')
-        //     }
-        // }, function (err) {
-        //     console.dir(err);
-        //     res.send(500, err);
-        // });
-
-
-
 
     } else {
         console.log('database Error');
