@@ -3,7 +3,8 @@ var dispSignUp = function(req,res){
 
     var context = {
         title:'HappyMall',
-        session:req.session
+        session:req.session,
+        message:req.flash('message')
     }
 
     req.app.render('signUp',context,function(err,html){
@@ -42,32 +43,25 @@ var procSignUp = function(req,res){
                 if(err){
                     console.err('계정 추가 중 에러 발생 : ' + err.stack);
                     //To do : Make Error Page
-                    res.writeHead('200',{'Content-Type':'text/html;charset=utf8'})
-                    res.write('<h2>사용자 추가 중 에러 발생</h2>')
-                    res.write(err.stack)
-                    res.end();
 
-                    return;
+                    req.flash('message','사용자 추가 중 에러가 발생했습니다.');
+                    res.redirect('/dispSignUp');
                 }
 
                 if(createdAccount){
-                    res.writeHead('200',{'Content-Type':'text/html;charset=utf8'})
-                    res.write('<h2>계정 추가 성공</h2>')
-                    res.end();
+                    req.flash('message','계정을 생성했습니다.(임시정보)');
+                    res.redirect('/dispSignUp');
                 } else{
-                    res.writeHead('200',{'Content-Type':'text/html;charset=utf8'})
-                    res.write('<h2>계정 추가 실패</h2>')
-                    res.write(err.stack)
-                    res.end();
+                    req.flash('message','사용자 추가에 실패했습니다.');
+                    res.redirect('/dispSignUp');
                 }
             })
         } else{
             //To do : Make Error Page
             console.log('wrong password');
-            res.writeHead('200',{'Content-Type':'text/html;charset=utf8'})
-            res.write('<h2>패스워드 불일치</h2>')
-            res.write(err.stack)
-            res.end();
+
+            req.flash('message','패스워드가 일치하지 않습니다.');
+            res.redirect('/dispSignUp');
         }
     } else{
         //To do : Make Error Page
@@ -139,25 +133,27 @@ var procSignIn = function(req,res){
                             req.session.accountEmail = paramEmail;
                             req.session.accountName = accountInfo[0]._doc.name;
 
-                            req.app.render('signIn', context, function (err, html) {
-                                if (err) {
-                                    throw err;
-                                }
-                                res.end(html)
-                            })
+                            // req.app.render('signIn', context, function (err, html) {
+                            //     if (err) {
+                            //         throw err;
+                            //     }
+                            //     res.end(html)
+                            // })
+                            res.redirect('/dispSignIn');
                         } else {
                             //To do : Login Failed
                             console.log('Email not found');
 
                             req.flash('message','이메일을 찾을 수 없습니다.');
-                            context.message = req.flash('message');
-
-                            req.app.render('signIn', context, function (err, html) {
-                                if (err) {
-                                    throw err;
-                                }
-                                res.end(html)
-                            })
+                            // context.message = req.flash('message');
+                            //
+                            // req.app.render('signIn', context, function (err, html) {
+                            //     if (err) {
+                            //         throw err;
+                            //     }
+                            //     res.end(html)
+                            // })
+                            res.redirect('/dispSignIn');
                         }
                     }
                 })
@@ -177,22 +173,24 @@ var procSignIn = function(req,res){
                                 req.session.authorized = true;
 
                                 console.log('Login Success');
-                                req.app.render('index', context, function (err, html) {
-                                    if (err) {
-                                        throw err;
-                                    }
-                                    res.end(html)
-                                })
+                                // req.app.render('index', context, function (err, html) {
+                                //     if (err) {
+                                //         throw err;
+                                //     }
+                                //     res.end(html)
+                                // })
+                                res.redirect('/');
                             } else {
                                 //To do : Add Error Proc
                                 req.flash('message','비밀번호가 일치하지 않습니다.');
-                                context.message = req.flash('message');
-                                req.app.render('signIn', context, function (err, html) {
-                                    if (err) {
-                                        throw err;
-                                    }
-                                    res.end(html)
-                                })
+                                // context.message = req.flash('message');
+                                // req.app.render('signIn', context, function (err, html) {
+                                //     if (err) {
+                                //         throw err;
+                                //     }
+                                //     res.end(html)
+                                // })
+                                res.redirect('/dispSignIn');
                             }
                         } else {
                             //To do : Login Failed
