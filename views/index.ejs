@@ -105,37 +105,21 @@
                         </div>
                         <div class="col-12 mt-3">
                             <ul class="list-group">
-                                <li class="list-group-item">최근 본 상품</li>
+                                <li class="list-group-item">새로 등록된 상품</li>
                                 <li class="list-group-item">
                                     <div class="d-flex main-inner-group-item mb-1">
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
+                                        <% for(var i=0;i<latestProduct.length;i++){ %>
+                                            <div class="m-2">
+                                                <img src="/uploads/<%= latestProduct[i]._doc.filename%>" class="img-responsive product-img">
+                                            </div>
+                                        <% } %>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-12 mt-3">
                             <ul class="list-group">
-                                <li class="list-group-item">체크한상품의 관련상품</li>
+                                <li class="list-group-item">최근 본 상품</li>
                                 <li class="list-group-item">
                                     <div class="d-flex main-inner-group-item mb-1">
                                         <div class="m-2">

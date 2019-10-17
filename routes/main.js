@@ -1,15 +1,28 @@
-var main = function(req,res){
+var dispMain = function(req,res){
     console.log('main 호출됨')
 
     var context = {
-        session:req.session
+        session:req.session,
+        latestProduct:''
     }
 
-    req.app.render('index',context,function(err,html){
-        if(err){throw err};
 
-        res.end(html);
-    })
+    var database = req.app.get('database');
+    var productSchema = database.productSchema;
+    var productModel = database.productModel;
+
+    productModel.findAll(function(err,latestProductInfo){
+        if(err){throw err;}
+        context.latestProduct = latestProductInfo;
+        req.app.render('index',context,function(err,html){
+            if(err){throw err};
+
+            res.end(html);
+        })
+    });
+
+
+
 }
 
-module.exports.main = main;
+module.exports.dispMain = dispMain;

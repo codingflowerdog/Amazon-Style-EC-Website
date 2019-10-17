@@ -12,7 +12,7 @@ module.exports = {
         }
     ],
     route_info:[
-        {file:'./main', path:'/', method:'main', type:'get'},
+        {file:'./main', path:'/', method:'dispMain', type:'get'},
         {file:'./account', path:'/dispSignUp', method:'dispSignUp', type:'get'},
         {file:'./account', path:'/dispSignIn', method:'dispSignIn', type:'get'},
         {file:'./account', path:'/dispSignIn', method:'dispSignIn', type:'post'},
