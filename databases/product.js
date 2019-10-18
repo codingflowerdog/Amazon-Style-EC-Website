@@ -19,6 +19,10 @@ schema.createSchema = function(mongoose){
         this.updateOne({'_id':id},{$inc : {'review':1}},callback);
     });
 
+    productSchema.static('deleteById',function(id,callback){
+        this.deleteOne({'_id':id},callback);
+    });
+
     productSchema.method('uploadProduct',function(callback) {
         return this.save(callback);
     })
