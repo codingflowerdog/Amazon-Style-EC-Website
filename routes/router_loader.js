@@ -19,7 +19,7 @@ var init = function(app,router){
     app.use('/',router);
 
     //Set Error Page
-    setErrorPage(app,router);
+    //setErrorPage(app,router);
 
 }
 

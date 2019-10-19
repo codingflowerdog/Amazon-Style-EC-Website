@@ -15,9 +15,10 @@ schema.createSchema = function(mongoose){
         return this.find({},callback).limit(10);
     });
 
-    productSchema.static('findById',function(id,callback){
-        this.updateOne({'_id':id},{$inc : {'review':1}},callback);
+    productSchema.static('findById',function(id,callback) {
+        return this.findOneAndUpdate({'_id': new mongoose.Types.ObjectId(id)}, {$inc: {'review': 1}}, callback);
     });
+
 
     productSchema.static('deleteById',function(id,callback){
         this.deleteOne({'_id':id},callback);

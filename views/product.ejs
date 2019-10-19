@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <title>HappyMall</title>
     <%include common.ejs%>
-    <link rel="stylesheet" href="/css/history.css">
+    <link rel="stylesheet" href="/css/product.css">
     <script>
         $(function(){
             $(".custom-file-input").on("change", function() {
@@ -17,9 +17,10 @@
 <body>
     <%include header.ejs%>
     <div class="container">
-        <div class="card bg-light history">
+        <div class="card bg-light product">
             <article class="card-body" style="max-width: 1200px;">
-                <h4 class="card-title mt-3 text-center">상품등록</h4>
+                <% if(!id){ %>
+                    <h4 class="card-title mt-3 text-center">상품등록</h4>
                     <form action="/procProduct" method="post" enctype="multipart/form-data">
                         <div class="input-group mb-3 input-group-sm">
                             <div class="input-group-prepend">
@@ -34,7 +35,7 @@
                             <select class="custom-select" id="category" name="category">
                                 <option selected>분류를 선택해주세요</option>
                                 <% for(var i = 0; i < category.length; i++){ %>
-                                    <option value="<%=category[i][1]%>"><%=category[i][0]%></option>
+                                <option value="<%=category[i][1]%>"><%=category[i][0]%></option>
                                 <% } %>
                             </select>
                         </div>
@@ -54,6 +55,23 @@
                         </div>
                         <button type="submit" class="btn btn-primary mt-2">등록하기</button>
                     </form>
+                <% } else{ %>
+                    <div class="product-photo">
+                        <img src="/uploads/<%= product.filename %>">
+                    </div>
+                    <div class="product-info">
+                        <!-- Print Test -->
+                        <div>
+                            <%= product.title %>
+                        </div>
+                        <div>
+                            <%= product.price %>
+                        </div>
+                        <div>
+                            <%= product.content %>
+                        </div>
+                    </div>
+                <% }%>
             </article>
         </div>
     </div>

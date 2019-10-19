@@ -26,12 +26,29 @@ var dispProduct = function(req,res){
         ]
     };
 
-    req.app.render('product',context,function(err,html){
-        if(err){throw err};
+    var database = req.app.get('database');
+    var productModel = database.productModel;
 
-        console.log('render product page');
-        res.end(html);
+    productModel.findById(req.query.id,function(err,findProductInfo){
+        if(err){throw err}
+
+        if(findProductInfo){
+            context.id = req.query.id;
+            context.product = findProductInfo._doc;
+        } else {
+            context.id='';
+        }
+        console.dir(context);
+        req.app.render('product',context,function(err,html){
+            if(err){throw err};
+
+            console.log('render product page');
+            res.end(html);
+        })
+
     })
+
+
 }
 
 
