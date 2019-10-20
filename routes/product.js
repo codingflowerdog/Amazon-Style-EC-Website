@@ -60,14 +60,10 @@ var procProduct = function(req,res){
     console.log('called procProduct2');
     var database = req.app.get('database');
 
-    var productSchema = database.productSchema;
-    var productModel = database.productModel;
 
     if(database){
         //todo : add product proc
         console.log('database connected');
-
-
 
         console.log('file log');
         const file = req.file

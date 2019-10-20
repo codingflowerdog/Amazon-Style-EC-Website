@@ -133,26 +133,12 @@ var procSignIn = function(req,res){
                             req.session.accountEmail = paramEmail;
                             req.session.accountName = accountInfo[0]._doc.name;
 
-                            // req.app.render('signIn', context, function (err, html) {
-                            //     if (err) {
-                            //         throw err;
-                            //     }
-                            //     res.end(html)
-                            // })
                             res.redirect('/dispSignIn');
                         } else {
                             //To do : Login Failed
                             console.log('Email not found');
 
                             req.flash('message','이메일을 찾을 수 없습니다.');
-                            // context.message = req.flash('message');
-                            //
-                            // req.app.render('signIn', context, function (err, html) {
-                            //     if (err) {
-                            //         throw err;
-                            //     }
-                            //     res.end(html)
-                            // })
                             res.redirect('/dispSignIn');
                         }
                     }
@@ -173,23 +159,10 @@ var procSignIn = function(req,res){
                                 req.session.authorized = true;
 
                                 console.log('Login Success');
-                                // req.app.render('index', context, function (err, html) {
-                                //     if (err) {
-                                //         throw err;
-                                //     }
-                                //     res.end(html)
-                                // })
                                 res.redirect('/');
                             } else {
                                 //To do : Add Error Proc
                                 req.flash('message','비밀번호가 일치하지 않습니다.');
-                                // context.message = req.flash('message');
-                                // req.app.render('signIn', context, function (err, html) {
-                                //     if (err) {
-                                //         throw err;
-                                //     }
-                                //     res.end(html)
-                                // })
                                 res.redirect('/dispSignIn');
                             }
                         } else {
@@ -282,7 +255,6 @@ var procAccount = function(req,res){
     var database = req.app.get('database');
 
     if(database){
-        var accountSchema = database.accountSchema;
         var accountModel = database.accountModel;
         var accountEmail = req.session.accountEmail
 

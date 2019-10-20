@@ -6,11 +6,8 @@ var dispMain = function(req,res){
         latestProduct:''
     }
 
-
     var database = req.app.get('database');
-    var productSchema = database.productSchema;
     var productModel = database.productModel;
-
     productModel.findAll(function(err,latestProductInfo){
         if(err){throw err;}
         context.latestProduct = latestProductInfo;
