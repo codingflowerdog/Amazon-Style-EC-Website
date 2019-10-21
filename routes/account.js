@@ -373,10 +373,6 @@ var procAccount = function(req,res){
                 } else {
 
                 }
-                //var auth = accountModel.authenticate(accountInfo[0]._doc.email, accountInfo[0]._doc.salt,accountInfo[0]._doc.hashed_password);
-
-
-
 
             } else {
                 //todo : add error page
