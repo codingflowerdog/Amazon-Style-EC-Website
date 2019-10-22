@@ -56,19 +56,26 @@
                         <button type="submit" class="btn btn-primary mt-2">등록하기</button>
                     </form>
                 <% } else{ %>
-                    <div class="product-photo">
-                        <img src="/uploads/<%= product.filename %>">
-                    </div>
-                    <div class="product-info">
-                        <!-- Print Test -->
-                        <div>
-                            <%= product.title %>
+                    <div class="d-flex">
+                        <div class="p-1">
+                            <img src="/uploads/<%= product.filename %>">
                         </div>
-                        <div>
-                            <%= product.price %>
-                        </div>
-                        <div>
-                            <%= product.content %>
+                        <div class="p-1 flex-grow-1">
+                            <div class="d-flex flex-column">
+                                <!-- Print Test -->
+                                <div class="border-bottom title">
+                                    <%= product.title %>
+                                </div>
+                                <div class="price">
+                                    가격 : <%= product.price %>
+                                </div>
+                                <div class="content font-bold border-bottom">
+                                    <span class="font-weight-bolder">상품설명</span>
+                                </div>
+                                <div>
+                                    <%= product.content %>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 <% }%>

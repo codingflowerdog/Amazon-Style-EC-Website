@@ -11,6 +11,8 @@ schema.createSchema = function(mongoose){
         review:{type:Number, 'default':0}
     });
 
+    // Todo : Add OrderHistory, ReadHistory Schema
+
     productSchema.static('findAll',function(callback){
         return this.find({},callback).limit(10);
     });

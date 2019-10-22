@@ -3,3 +3,23 @@
     max-width:1000px;
     margin:100px auto 0 auto;
 }
+
+.product-photo{
+    width:100%;
+}
+
+.product-info{
+    width:100%;
+}
+
+.title{
+    font-size:20pt;
+}
+
+.price{
+    padding-top:10px;
+}
+
+.content{
+    padding-top:10px;
+}
