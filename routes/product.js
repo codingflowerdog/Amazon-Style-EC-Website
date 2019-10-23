@@ -1,5 +1,3 @@
-var Q = require('q');
-
 var dispHistory = function(req,res){
     var context = {
         session:req.session

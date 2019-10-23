@@ -11,6 +11,16 @@ schema.createSchema = function(mongoose){
         review:{type:Number, 'default':0}
     });
 
+    var viewHistory = new mongoose.Schema({
+       email:{type:String, 'default':'', required:true},
+       history:{type:Array,'default':''}
+    });
+
+    var orderHistory = new mongoose.Schema({
+        email:{type:String, 'default':'', required:true},
+        orderedList:{type:Array,'default':''}
+    });
+
     // Todo : Add OrderHistory, ReadHistory Schema
 
     productSchema.static('findAll',function(callback){
@@ -19,6 +29,10 @@ schema.createSchema = function(mongoose){
 
     productSchema.static('findById',function(id,callback) {
         return this.findOneAndUpdate({'_id': new mongoose.Types.ObjectId(id)}, {$inc: {'review': 1}}, callback);
+    });
+
+    productSchema.static('findRecommendProduct',function(id,callback) {
+        return this.find({},callback).sort({review:-1}).limit(10);
     });
 
 

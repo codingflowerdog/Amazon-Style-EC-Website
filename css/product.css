@@ -23,3 +23,12 @@
 .content{
     padding-top:10px;
 }
+
+.product-button{
+    float:right;
+}
+
+.btn-order{
+    background-color: goldenrod;
+    min-width:100px;
+}
