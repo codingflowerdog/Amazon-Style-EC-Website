@@ -36,23 +36,21 @@ async function initProductList(req,res){
     var productModel = database.productModel;
     var productInfo = {}
 
+
     const latestProduct = await productModel.findAll(function(err,latestProductInfo){
         if(err){throw err;}
         console.log('1');
         return latestProductInfo;
     });
 
-    console.log('3');
+    console.log('2');
     const recommendProduct = await productModel.findRecommendProduct(function(err,recommendProduct){
-        console.log('2???');
         if(err){throw err;}
-        console.log('1');
-        console.log('1');
-        console.log('1');
+        console.log('3');
         return recommendProduct;
     });
-
     console.log('4');
+
     productInfo.latestProduct = latestProduct;
     productInfo.recommendProduct = recommendProduct;
 

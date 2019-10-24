@@ -31,7 +31,7 @@ schema.createSchema = function(mongoose){
         return this.findOneAndUpdate({'_id': new mongoose.Types.ObjectId(id)}, {$inc: {'review': 1}}, callback);
     });
 
-    productSchema.static('findRecommendProduct',function(id,callback) {
+    productSchema.static('findRecommendProduct',function(callback) {
         return this.find({},callback).sort({review:-1}).limit(10);
     });
 
