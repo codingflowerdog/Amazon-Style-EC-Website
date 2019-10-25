@@ -6,21 +6,8 @@ var dispMain = async function(req,res){
         productInfo:''
     }
 
-    //var database = req.app.get('database');
-    //var productModel = database.productModel;
-    // productModel.findAll(function(err,latestProductInfo){
-    //     if(err){throw err;}
-    //     context.latestProduct = latestProductInfo;
-    //     req.app.render('index',context,function(err,html){
-    //         if(err){throw err};
-    //
-    //         res.end(html);
-    //     })
-    // });
-
     context.productInfo = await initProductList(req,res);
 
-    console.log('main???')
     console.log(context.productInfo);
     req.app.render('index',context,function(err,html){
         if(err){throw err};
@@ -39,23 +26,17 @@ async function initProductList(req,res){
 
     const latestProduct = await productModel.findAll(function(err,latestProductInfo){
         if(err){throw err;}
-        console.log('1');
         return latestProductInfo;
     });
 
-    console.log('2');
     const recommendProduct = await productModel.findRecommendProduct(function(err,recommendProduct){
         if(err){throw err;}
-        console.log('3');
         return recommendProduct;
     });
-    console.log('4');
 
     productInfo.latestProduct = latestProduct;
     productInfo.recommendProduct = recommendProduct;
 
-    console.log('async function test');
-    console.log(productInfo);
     return productInfo;
 }
 
