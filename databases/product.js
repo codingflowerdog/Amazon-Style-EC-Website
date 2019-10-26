@@ -11,16 +11,6 @@ schema.createSchema = function(mongoose){
         review:{type:Number, 'default':0}
     });
 
-    var viewHistory = new mongoose.Schema({
-       email:{type:String, 'default':'', required:true},
-       history:{type:Array,'default':''}
-    });
-
-    var orderHistory = new mongoose.Schema({
-        email:{type:String, 'default':'', required:true},
-        orderedList:{type:Array,'default':''}
-    });
-
     // Todo : Add OrderHistory, ReadHistory Schema
 
     productSchema.static('findAll',function(callback){
@@ -42,11 +32,9 @@ schema.createSchema = function(mongoose){
 
     productSchema.method('uploadProduct',function(callback) {
         return this.save(callback);
-    })
-
-
+    });
 
     return productSchema;
-}
+};
 
 module.exports = schema;

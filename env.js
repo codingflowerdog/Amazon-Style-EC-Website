@@ -9,7 +9,16 @@ module.exports = {
         {
             file:'./product', collection:'product',
             schemaName:'productSchema', modelName:'productModel'
+        },
+        {
+            file:'./orderHistory', collection:'orderHistory',
+            schemaName:'orderHistorySchema', modelName:'orderHistoryModel'
+        },
+        {
+            file:'./viewHistory', collection:'viewHistory',
+            schemaName:'viewHistorySchema', modelName:'viewHistoryModel'
         }
+
     ],
     route_info:[
         {file:'./main', path:'/', method:'dispMain', type:'get'},
@@ -25,7 +34,8 @@ module.exports = {
         {file:'./account', path:'/procSignOut', method:'procSignOut', type:'get'},
         {file:'./account', path:'/procAccount', method:'procAccount', type:'post'},
 
-        {file:'./product', path:'/procProduct', method:'procProduct', type:'upload'}
+        {file:'./product', path:'/procProduct', method:'procProduct', type:'upload'},
+        {file:'./product', path:'/procOrder', method:'procOrder', type:'post'}
     ]
 }
 

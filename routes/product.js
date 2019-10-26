@@ -109,7 +109,31 @@ var procProduct = function(req,res){
 
 }
 
+var procOrder = function(req,res){
+    var database = req.app.get('database');
+    var accountEmail = req.session.accountEmail;
+    var orderProductId = req.query.id;
+    var orderHistoryModel = database.orderHistoryModel;
+
+    orderHistoryModel.findByEmail(accountEmail,function(err,orderHistory){
+        if(err){throw err;};
+
+        if(orderHistory){
+            //todo : add OrderHistory
+        } else{
+
+        }
+    })
+
+
+    var historyModel = new database.orderHistoryModel({
+        email:req.session.accountEmail,
+
+    });
+}
+
 module.exports.dispHistory = dispHistory;
 module.exports.dispProduct = dispProduct;
 
 module.exports.procProduct = procProduct;
+module.exports.procOrder = procOrder;
