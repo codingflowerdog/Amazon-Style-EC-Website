@@ -110,8 +110,9 @@
                                     <div class="d-flex main-inner-group-item mb-1">
                                         <% for(var i=0;i<productInfo.latestProduct.length;i++){ %>
                                             <div class="m-2">
-                                                <img src="/uploads/<%= productInfo.latestProduct[i]._doc.filename%>" class="img-responsive product-img"
-                                                onclick="location.href='/dispProduct?id=<%= productInfo.latestProduct[i]._doc._id %>'">
+                                                <a href="/dispProduct?id=<%= productInfo.latestProduct[i]._doc._id %>">
+                                                    <img src="/uploads/<%= productInfo.latestProduct[i]._doc.filename%>" class="img-responsive product-img">
+                                                </a>
                                             </div>
                                         <% } %>
                                     </div>

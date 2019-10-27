@@ -11,10 +11,6 @@
                 var fileName = $(this).val().split("\\").pop();
                 $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
             });
-
-            $('#order').on('click',function(){
-                location.href='/procOrder';
-            });
         })
     </script>
 </head>
@@ -60,31 +56,33 @@
                         <button type="submit" class="btn btn-primary mt-2">등록하기</button>
                     </form>
                 <% } else{ %>
-                    <div class="d-flex">
-                        <div class="p-1">
-                            <img src="/uploads/<%= product.filename %>">
-                        </div>
-                        <div class="p-1 flex-grow-1">
-                            <div class="d-flex flex-column">
-                                <!-- Print Test -->
-                                <div class="border-bottom title">
-                                    <%= product.title %>
-                                </div>
-                                <div class="price">
-                                    가격 : <%= product.price %>
-                                </div>
-                                <div class="content font-bold border-bottom">
-                                    <span class="font-weight-bolder">상품설명</span>
-                                </div>
-                                <div>
-                                    <%= product.content %>
+                    <form action="/procOrder?id=<%= id %>" method="post">
+
+                        <div class="d-flex">
+                            <div class="p-1">
+                                <img src="/uploads/<%= product.filename %>">
+                            </div>
+                            <div class="p-1 flex-grow-1">
+                                <div class="d-flex flex-column">
+                                    <div class="border-bottom title">
+                                        <%= product.title %>
+                                    </div>
+                                    <div class="price">
+                                        가격 : <%= product.price %>
+                                    </div>
+                                    <div class="content font-bold border-bottom">
+                                        <span class="font-weight-bolder">상품설명</span>
+                                    </div>
+                                    <div>
+                                        <%= product.content %>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-button">
-                        <button type="button" class="btn-order btn" id="order">주문하기</button>
-                    </div>
+                        <div class="product-button">
+                            <button type="submit" class="btn-order btn" id="order">주문하기</button>
+                        </div>
+                    </form>
                 <% }%>
             </article>
         </div>

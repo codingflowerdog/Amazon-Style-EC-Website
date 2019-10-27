@@ -6,19 +6,6 @@ var dispMain = async function(req,res){
         productInfo:''
     }
 
-    context.productInfo = await initProductList(req,res);
-
-    console.log(context.productInfo);
-    req.app.render('index',context,function(err,html){
-        if(err){throw err};
-        res.end(html);
-    })
-
-
-
-}
-
-async function initProductList(req,res){
     var database = req.app.get('database');
     var productModel = database.productModel;
     var productInfo = {}
@@ -37,7 +24,14 @@ async function initProductList(req,res){
     productInfo.latestProduct = latestProduct;
     productInfo.recommendProduct = recommendProduct;
 
-    return productInfo;
+    context.productInfo = productInfo;
+
+    console.log(context.productInfo);
+    req.app.render('index',context,function(err,html){
+        if(err){throw err};
+        res.end(html);
+    })
+
 }
 
 module.exports.dispMain = dispMain;

@@ -24,29 +24,78 @@ var dispProduct = function(req,res){
         ]
     };
 
+    var accountEmail = req.session.accountEmail;
+    var viewProductId = req.query.id;
+
     var database = req.app.get('database');
     var productModel = database.productModel;
 
-    productModel.findById(req.query.id,function(err,findProductInfo){
-        if(err){throw err}
+    productModel.findById(viewProductId,function(err,findProductInfo){
+        if(err){throw err;}
 
+        console.log('in findById : ' + viewProductId);
         if(findProductInfo){
-            context.id = req.query.id;
+            context.id = accountEmail;
             context.product = findProductInfo._doc;
         } else {
             context.id='';
         }
         console.dir(context);
+
+        const viewHistoryModel = database.viewHistoryModel;
+
+        console.log('view History Find Called');
+        viewHistoryModel.findByEmail(accountEmail,function(err,findViewHistoryInfo){
+            if(err){throw err;}
+            console.log('here?');
+            console.log('in findByEmail : ' + viewProductId);
+
+            if(findViewHistoryInfo.length > 0 ){
+
+                var historyList = findViewHistoryInfo[0].history;
+
+                if(!historyList.includes(viewProductId)){
+                    historyList.push(viewProductId);
+                    viewHistoryModel.updateByEmail(req.session.accountEmail,historyList,function(err,updatedViewHistory){
+                        if(err){throw err;}
+
+                        if(updatedViewHistory.ok === 1){
+                            console.log('조회목록 갱신 성공');
+                        } else {
+                            console.log('조회목록 갱신 실패');
+                        }
+                    })
+                } else {
+                    //todo : sort viewHistory by viewDate
+                    console.log('기존 조회목록 존재');
+                }
+            } else {
+                const viewHistory = new viewHistoryModel({
+                    email:accountEmail,
+                    history:[viewProductId]
+                })
+
+                viewHistory.saveViewHistory(function(err,createdViewHistory){
+                    if(err){throw err;}
+
+                    console.log('in saveViewHistory : ' + viewProductId);
+
+                    if(createdViewHistory){
+                        console.log('조회목록 추가 완료');
+                    } else{
+                        console.log('조회목록 추가 실패');
+                    }
+                })
+            }
+        })
+
         req.app.render('product',context,function(err,html){
             if(err){throw err};
 
             console.log('render product page');
             res.end(html);
         })
-
     })
-
-
 }
 
 
@@ -117,18 +166,49 @@ var procOrder = function(req,res){
 
     orderHistoryModel.findByEmail(accountEmail,function(err,orderHistory){
         if(err){throw err;};
+        if(orderHistory.length > 0){
 
-        if(orderHistory){
-            //todo : add OrderHistory
+            if(!orderHistory[0].orderedList.includes(orderProductId)){
+                orderHistory[0].orderedList.push(orderProductId);
+                orderHistoryModel.updateOrderHistory(accountEmail,orderHistory[0].orderedList,function(err,updatedOrderHistory){
+                    if(err){throw err;}
+
+                    console.log(updatedOrderHistory);
+                    if(updatedOrderHistory.ok === 1){
+                        console.log('구매이력 추가 완료');
+                        console.log(updatedOrderHistory);
+                        res.redirect('/');
+                    } else {
+                        console.log('구매이력 추가 실패');
+                        res.redirect('/');
+                    }
+
+                })
+            } else {
+                console.log('기존 구매이력 존재');
+                res.redirect('/');
+            }
+
         } else{
+            const historyModel = new database.orderHistoryModel({
+                email:req.session.accountEmail,
+                orderedList:[orderProductId]
+            });
+            console.log('모델 생성 성공');
 
+            historyModel.saveOrderHistory(function(err,createdOrderHistory){
+                if(err){throw err;}
+
+                if(createdOrderHistory){
+                    console.log('구매이력 추가 완료');
+                    console.log(createdOrderHistory);
+                    res.redirect('/');
+                } else{
+                    console.log('구매이력 추가 실패');
+                    res.redirect('/');
+                }
+            })
         }
-    })
-
-
-    var historyModel = new database.orderHistoryModel({
-        email:req.session.accountEmail,
-
     });
 }
 
