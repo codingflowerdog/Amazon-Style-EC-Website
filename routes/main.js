@@ -8,6 +8,7 @@ var dispMain = async function(req,res){
 
     var database = req.app.get('database');
     var productModel = database.productModel;
+    var viewHistory = database.viewHistoryModel;
     var productInfo = {}
 
 
@@ -21,8 +22,14 @@ var dispMain = async function(req,res){
         return recommendProduct;
     });
 
+    const viewProduct = await viewHistoryModel.findByEmail(req.session.accountEmail, function(err,viewProductList){
+        if(err){throw err;}
+        return viewProductList;
+    })
+
     productInfo.latestProduct = latestProduct;
     productInfo.recommendProduct = recommendProduct;
+    productInfo.viewProduct = viewProduct;
 
     context.productInfo = productInfo;
 

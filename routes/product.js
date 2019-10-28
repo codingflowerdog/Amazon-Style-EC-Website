@@ -56,19 +56,20 @@ var dispProduct = function(req,res){
 
                 if(!historyList.includes(viewProductId)){
                     historyList.push(viewProductId);
-                    viewHistoryModel.updateByEmail(req.session.accountEmail,historyList,function(err,updatedViewHistory){
-                        if(err){throw err;}
-
-                        if(updatedViewHistory.ok === 1){
-                            console.log('조회목록 갱신 성공');
-                        } else {
-                            console.log('조회목록 갱신 실패');
-                        }
-                    })
                 } else {
-                    //todo : sort viewHistory by viewDate
-                    console.log('기존 조회목록 존재');
+                    // viewHistoryList Updated by ES6 filter
+                    historyList = [viewProductId].concat(historyList.filter(id => id !== viewProductId));
                 }
+
+                viewHistoryModel.updateByEmail(req.session.accountEmail,historyList,function(err,updatedViewHistory){
+                    if(err){throw err;}
+
+                    if(updatedViewHistory.ok === 1){
+                        console.log('조회목록 갱신 성공');
+                    } else {
+                        console.log('조회목록 갱신 실패');
+                    }
+                })
             } else {
                 const viewHistory = new viewHistoryModel({
                     email:accountEmail,
