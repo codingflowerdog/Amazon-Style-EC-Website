@@ -14,7 +14,7 @@ schema.createSchema = function(mongoose){
     // Todo : Add OrderHistory, ReadHistory Schema
 
     productSchema.static('findAll',function(callback){
-        return this.find({},callback).limit(10);
+        return this.find({},callback).limit(15);
     });
 
     productSchema.static('findById',function(id,callback) {
@@ -23,6 +23,12 @@ schema.createSchema = function(mongoose){
 
     productSchema.static('findRecommendProduct',function(callback) {
         return this.find({},callback).sort({review:-1}).limit(10);
+    });
+
+    productSchema.static('findViewHistoryProduct',function(viewHistoryList,callback) {
+        console.log('findViewHistoryProduct Test');
+        console.dir(viewHistoryList)
+        return this.find({'_id':{$all:new mongoose.Types.Array(new mongoose.Types.ObjectId(viewHistoryList))}},callback).limit(15);
     });
 
 

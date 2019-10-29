@@ -8,7 +8,7 @@ var dispMain = async function(req,res){
 
     var database = req.app.get('database');
     var productModel = database.productModel;
-    var viewHistory = database.viewHistoryModel;
+    var viewHistoryModel = database.viewHistoryModel;
     var productInfo = {}
 
 
@@ -24,7 +24,23 @@ var dispMain = async function(req,res){
 
     const viewProduct = await viewHistoryModel.findByEmail(req.session.accountEmail, function(err,viewProductList){
         if(err){throw err;}
-        return viewProductList;
+
+        if(viewProductList.length>0){
+            console.log('in??')
+            console.log(viewProductList)
+            console.log('history?? ' + viewProductList[0].history)
+            productModel.findViewHistoryProduct(viewProductList[0].history,function(err,viewHistoryList){
+                if(err){throw err;}
+
+                if(viewHistoryList.length > 0){
+                    return viewHistoryList;
+                } else {
+                    return [];
+                }
+            })
+        } else {
+            return [];
+        }
     })
 
     productInfo.latestProduct = latestProduct;
