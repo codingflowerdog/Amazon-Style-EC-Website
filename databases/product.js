@@ -26,9 +26,8 @@ schema.createSchema = function(mongoose){
     });
 
     productSchema.static('findViewHistoryProduct',function(viewHistoryList,callback) {
-        console.log('findViewHistoryProduct Test');
-        console.dir(viewHistoryList)
-        return this.find({'_id':{$all:new mongoose.Types.Array(new mongoose.Types.ObjectId(viewHistoryList))}},callback).limit(15);
+        console.log('ViewList ' + viewHistoryList)
+        return this.find({'_id':{$all:viewHistoryList}},callback).limit(15);
     });
 
 

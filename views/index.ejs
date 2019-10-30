@@ -127,7 +127,7 @@
 
                                         <% for(var i=0;i<productInfo.viewProduct.length;i++){ %>
                                         <div class="m-2">
-                                            <img src="/uploads/" class="img-responsive product-img">
+                                            <img src="/uploads/<%= productInfo.viewProduct[i]._doc.filename%>" class="img-responsive product-img">
                                         </div>
                                         <% } %>
                                     </div>
