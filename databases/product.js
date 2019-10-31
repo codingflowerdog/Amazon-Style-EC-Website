@@ -26,7 +26,6 @@ schema.createSchema = function(mongoose){
     });
 
     productSchema.static('findViewHistoryProduct',function(viewHistoryList,callback) {
-        console.log('ViewList ' + viewHistoryList)
         return this.find({'_id':{$all:viewHistoryList}},callback).limit(15);
     });
 
