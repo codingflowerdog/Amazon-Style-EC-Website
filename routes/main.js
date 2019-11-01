@@ -30,7 +30,12 @@ var dispMain = async function(req,res){
     if(viewProduct.length > 0){
         console.log(viewProduct);
         await productModel.findViewHistoryProduct(viewProduct[0].history,function(err,viewHistoryList){
-            if(err){throw err;}
+            if(err){
+                console.log("Error!!!");
+                console.log(err);
+                throw err;}
+            console.log('ViewHistoryList ==>')
+            console.log(viewHistoryList)
 
             if(viewHistoryList.length > 0){
                 productInfo.viewProduct = viewHistoryList;

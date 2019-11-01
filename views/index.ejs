@@ -48,27 +48,13 @@
                                 <li class="list-group-item">인기 상품</li>
                                 <li class="list-group-item">
                                     <div class="d-flex main-inner-group-item mb-1">
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
+                                        <% for(var i=0;i<productInfo.recommendProduct.length;i++){ %>
+                                            <div class="m-2">
+                                                <a href="/dispProduct?id=<%= productInfo.recommendProduct[i]._doc._id %>">
+                                                    <img src="/uploads/<%= productInfo.recommendProduct[i]._doc.filename%>" class="img-responsive product-img">
+                                                </a>
+                                            </div>
+                                        <% } %>
                                     </div>
                                 </li>
                             </ul>
@@ -124,12 +110,13 @@
                                 <li class="list-group-item">최근 본 상품</li>
                                 <li class="list-group-item">
                                     <div class="d-flex main-inner-group-item mb-1">
-
                                         <%  if(productInfo.viewProduct){
-                                                for(var i=0;i<productInfo.viewProduct.length;i++){ %>
-                                            <div class="m-2">
-                                                <img src="/uploads/<%= productInfo.viewProduct[i]._doc.filename%>" class="img-responsive product-img">
-                                            </div>
+                                            for(var i=0;i<productInfo.viewProduct.length;i++){ %>
+                                                <div class="m-2">
+                                                    <a href="/dispProduct?id=<%= productInfo.viewProduct[i]._doc._id %>">
+                                                        <img src="/uploads/<%= productInfo.viewProduct[i]._doc.filename%>" class="img-responsive product-img">
+                                                    </a>
+                                                </div>
                                         <%  }} %>
 
                                     </div>
