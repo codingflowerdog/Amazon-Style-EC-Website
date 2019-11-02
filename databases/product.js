@@ -26,8 +26,12 @@ schema.createSchema = function(mongoose){
     });
 
     productSchema.static('findViewHistoryProduct',function(viewHistoryList,callback) {
-        console.log(viewHistoryList);
-        return this.find({'_id':{$all:viewHistoryList}},callback).limit(15);
+        var productIdList = [];
+        for (id in viewHistoryList) {
+            var objectId = viewHistoryList[id];
+            productIdList.push( new mongoose.Types.ObjectId(objectId) );
+        }
+        return this.find({'_id':{$in:productIdList}},callback).limit(15);
     });
 
 
