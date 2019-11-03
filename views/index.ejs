@@ -48,10 +48,10 @@
                                 <li class="list-group-item">인기 상품</li>
                                 <li class="list-group-item">
                                     <div class="d-flex main-inner-group-item mb-1">
-                                        <% for(var i=0;i<productInfo.recommendProduct.length;i++){ %>
+                                        <% for(var i=0;i<productInfo.popularProduct.length;i++){ %>
                                             <div class="m-2">
-                                                <a href="/dispProduct?id=<%= productInfo.recommendProduct[i]._doc._id %>">
-                                                    <img src="/uploads/<%= productInfo.recommendProduct[i]._doc.filename%>" class="img-responsive product-img">
+                                                <a href="/dispProduct?id=<%= productInfo.popularProduct[i]._doc._id %>">
+                                                    <img src="/uploads/<%= productInfo.popularProduct[i]._doc.filename%>" class="img-responsive product-img">
                                                 </a>
                                             </div>
                                         <% } %>
@@ -59,32 +59,45 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-6">
+                        <div class="col-3">
                             <ul class="list-group">
-                                <li class="list-group-item">타임세일</li>
+                                <li class="list-group-item">최근확인한 상품</li>
                                 <li class="list-group-item">
                                     <div class="d-flex main-inner-group-item mb-1">
+                                    <% if(productInfo.checkProduct){
+                                        for(var i=0;i<productInfo.checkProduct.length;i++){ %>
                                         <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                            <a href="/dispProduct?id=<%= productInfo.checkProduct[i]._doc._id %>">
+                                                <img src="/uploads/<%= productInfo.checkProduct[i]._doc.filename%>" class="img-responsive product-img">
+                                            </a>
                                         </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                    <% }
+                                    } else{ %>
+                                    <div class="d-flex flex-column w-100">
+                                        <div class="p-1">
+                                            <p>좀 더 편한 쇼핑을 즐겨보세요.</p>
                                         </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
+                                        <div class="signIn">
+                                            <button type="button" class="btn signIn">Sign In</button>
                                         </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
-                                        <div class="m-2">
-                                            <img src="/img/p1.jpg" class="img-responsive product-img">
-                                        </div>
+                                    </div>
+                                    <% } %>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">추천상품</li>
+                                <li class="list-group-item">
+                                    <div class="d-flex main-inner-group-item mb-1">
+                                        <% for(var i=0;i<productInfo.recommendProduct.length;i++){ %>
+                                            <div class="m-2">
+                                                <a href="/dispProduct?id=<%= productInfo.recommendProduct[i]._doc._id %>">
+                                                    <img src="/uploads/<%= productInfo.recommendProduct[i]._doc.filename%>" class="img-responsive product-img">
+                                                </a>
+                                            </div>
+                                        <% } %>
                                     </div>
                                 </li>
                             </ul>
@@ -110,15 +123,17 @@
                                 <li class="list-group-item">최근 본 상품</li>
                                 <li class="list-group-item">
                                     <div class="d-flex main-inner-group-item mb-1">
-                                        <%  if(productInfo.viewProduct){
-                                            for(var i=0;i<productInfo.viewProduct.length;i++){ %>
-                                                <div class="m-2">
-                                                    <a href="/dispProduct?id=<%= productInfo.viewProduct[i]._doc._id %>">
-                                                        <img src="/uploads/<%= productInfo.viewProduct[i]._doc.filename%>" class="img-responsive product-img">
-                                                    </a>
-                                                </div>
-                                        <%  }} %>
-
+                                    <%  if(productInfo.viewProduct && session.accountEmail){
+                                        for(var i=0;i<productInfo.viewProduct.length;i++){ %>
+                                        <div class="m-2">
+                                            <a href="/dispProduct?id=<%= productInfo.viewProduct[i]._doc._id %>">
+                                                <img src="/uploads/<%= productInfo.viewProduct[i]._doc.filename%>" class="img-responsive product-img">
+                                            </a>
+                                        </div>
+                                        <% }
+                                        } else{ %>
+                                        최근에 찾아본 상품이 존재하지 않습니다.
+                                        <% } %>
                                     </div>
                                 </li>
                             </ul>

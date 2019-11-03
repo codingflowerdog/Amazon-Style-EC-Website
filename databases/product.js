@@ -21,8 +21,14 @@ schema.createSchema = function(mongoose){
         return this.findOneAndUpdate({'_id': new mongoose.Types.ObjectId(id)}, {$inc: {'review': 1}}, callback);
     });
 
-    productSchema.static('findRecommendProduct',function(callback) {
+    productSchema.static('findPopularProduct',function(callback) {
         return this.find({},callback).sort({review:-1}).limit(10);
+    });
+
+    productSchema.static('findRecommendProduct',async function(callback) {
+        const count = await this.count();
+        const rand = Math.floor(Math.random() * count);
+        return this.find({},callback).skip(rand).limit(1);
     });
 
     productSchema.static('findViewHistoryProduct',function(viewHistoryList,callback) {
@@ -33,7 +39,6 @@ schema.createSchema = function(mongoose){
         }
         return this.find({'_id':{$in:productIdList}},callback).limit(15);
     });
-
 
     productSchema.static('deleteById',function(id,callback){
         this.deleteOne({'_id':id},callback);

@@ -17,8 +17,15 @@ var dispMain = async function(req,res){
         return latestProductInfo;
     });
 
+    const popularProduct = await productModel.findPopularProduct(function(err,popularProduct){
+        if(err){throw err;}
+        return popularProduct;
+    });
+
     const recommendProduct = await productModel.findRecommendProduct(function(err,recommendProduct){
         if(err){throw err;}
+        console.log('in callback :: findRecommendProduct');
+        console.log(recommendProduct)
         return recommendProduct;
     });
 
@@ -29,11 +36,20 @@ var dispMain = async function(req,res){
 
     if(viewProduct.length > 0){
         console.log(viewProduct);
+
+        console.log('Call CheckProduct')
+        console.log(viewProduct);
+        await productModel.findById(function(err,checkProduct){
+            if(err){throw err;}
+            if(checkProduct){
+                productInfo.checkProduct = checkProduct;
+            } else {
+                productInfo.checkProduct = [];
+            }
+        });
+
         await productModel.findViewHistoryProduct(viewProduct[0].history,function(err,viewHistoryList){
-            if(err){
-                console.log("Error!!!");
-                console.log(err);
-                throw err;}
+            if(err){throw err;}
             console.log('ViewHistoryList ==>')
             console.log(viewHistoryList)
 
@@ -45,7 +61,9 @@ var dispMain = async function(req,res){
 
 
     productInfo.latestProduct = latestProduct;
+    productInfo.popularProduct = popularProduct;
     productInfo.recommendProduct = recommendProduct;
+
     context.productInfo = productInfo;
 
     console.log(context.productInfo);

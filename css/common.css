@@ -127,3 +127,10 @@ a:visited { color: green; text-decoration: none;}
     }
 }
 
+.signIn{
+    width:100%;
+}
+.signIn>button{
+    background-color: goldenrod;
+    max-width:280px;
+}
