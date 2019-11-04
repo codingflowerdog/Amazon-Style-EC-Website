@@ -1,14 +1,43 @@
-var dispHistory = function(req,res){
+var dispHistory = async function(req,res){
     var context = {
-        session:req.session
+        session:req.session,
+        productInfo:''
     };
 
-    req.app.render('history',context,function(err,html){
-        if(err){throw err};
+    var database = req.app.get('database');
+    var productModel = database.productModel;
+    var orderHistoryModel = database.orderHistoryModel;
+    var productInfo = {}
 
-        console.log('render history page');
-        res.end(html);
+    var orderHistory = await orderHistoryModel.findByEmail(req.session.accountEmail,function(err,orderHistoryList){
+        if(err){throw err;}
+        return orderHistoryList;
+
     })
+
+    if(orderHistory.length>0){
+        console.log('orderHistory==>');
+        console.log(orderHistory);
+        await productModel.findByList(orderHistory[0].orderedList,function(err,orderHistoryList){
+            if(err){throw err;}
+            productInfo.orderHistory = orderHistoryList;
+        })
+    }
+
+
+    context.productInfo = productInfo;
+
+    if(req.session.accountEmail){
+        req.app.render('history',context,function(err,html){
+            if(err){throw err};
+
+            console.log('render history page');
+            res.end(html);
+        })
+    } else {
+        res.redirect('/dispSignIn');
+    }
+
 }
 
 var dispProduct = function(req,res){

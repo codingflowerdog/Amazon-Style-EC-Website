@@ -39,16 +39,16 @@ var dispMain = async function(req,res){
 
         console.log('Call CheckProduct')
         console.log(viewProduct);
-        await productModel.findById(function(err,checkProduct){
+        await productModel.findById(viewProduct[0].history[0],function(err,checkProduct){
             if(err){throw err;}
             if(checkProduct){
                 productInfo.checkProduct = checkProduct;
             } else {
-                productInfo.checkProduct = [];
+                productInfo.checkProduct = '';
             }
         });
 
-        await productModel.findViewHistoryProduct(viewProduct[0].history,function(err,viewHistoryList){
+        await productModel.findByList(viewProduct[0].history,function(err,viewHistoryList){
             if(err){throw err;}
             console.log('ViewHistoryList ==>')
             console.log(viewHistoryList)

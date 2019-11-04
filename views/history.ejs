@@ -12,6 +12,17 @@
         <div class="card bg-light history">
             <article class="card-body mx-auto" style="max-width: 400px;">
                 <h4 class="card-title mt-3 text-center">주문이력</h4>
+                <%  if(productInfo.orderHistory && session.accountEmail){
+                        for(var i=0; i< productInfo.orderHistory.length;i++){%>
+                    <div class="media">
+                        <img src="/uploads/<%= productInfo.orderHistory[i]._doc.filename%>" class="align-self-start mr-3" style="width:60px">
+                        <div class="media-body">
+                            <h4><%= productInfo.orderHistory[i]._doc.title%></h4>
+                            <p><%= productInfo.orderHistory[i]._doc.price%></p>
+                        </div>
+                    </div>
+                <%      }
+                    }%>
             </article>
         </div>
     </div>

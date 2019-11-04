@@ -31,10 +31,10 @@ schema.createSchema = function(mongoose){
         return this.find({},callback).skip(rand).limit(1);
     });
 
-    productSchema.static('findViewHistoryProduct',function(viewHistoryList,callback) {
+    productSchema.static('findByList',function(list,callback) {
         var productIdList = [];
-        for (id in viewHistoryList) {
-            var objectId = viewHistoryList[id];
+        for (id in list) {
+            var objectId = list[id];
             productIdList.push( new mongoose.Types.ObjectId(objectId) );
         }
         return this.find({'_id':{$in:productIdList}},callback).limit(15);
