@@ -84,7 +84,7 @@ var dispProduct = function(req,res){
                 var historyList = findViewHistoryInfo[0].history;
 
                 if(!historyList.includes(viewProductId)){
-                    historyList.push(viewProductId);
+                    historyList.unshift(viewProductId);
                 } else {
                     // viewHistoryList Updated by ES6 filter
                     historyList = [viewProductId].concat(historyList.filter(id => id !== viewProductId));
@@ -242,8 +242,49 @@ var procOrder = function(req,res){
     });
 }
 
+var procDeleteHistory = function(req,res){
+    var context = {
+        session:req.session
+    };
+
+    var accountEmail = req.session.accountEmail;
+    var deleteProductId = req.query.id;
+
+    var database = req.app.get('database');
+
+    const orderHistoryModel = database.ordderHistoryModel;
+
+    console.log('view History Find Called');
+    orderHistoryModel.findByEmail(accountEmail,function(err,findOrderHistoryInfo){
+        if(err){throw err;}
+        console.log('here?');
+        console.log('in findByEmail : ' + viewProductId);
+
+        if(findOrderHistoryInfo.length > 0 ){
+
+            var orderedList = findOrderHistoryInfo[0].orderedList;
+
+            orderedList = [].concat(orderedList.filter(id => id !== deleteProductId));
+
+            orderHistoryModel.updateByEmail(req.session.accountEmail,orderedList,function(err,updatedOrderHistory){
+                if(err){throw err;}
+
+                if(updatedOrderHistory.ok === 1){
+                    console.log('구매이력 삭제 성공');
+                } else {
+                    console.log('구매이력 삭제 실패');
+                }
+            })
+        } else {
+            // Todo : 에러페이지 추가하기
+            console.log('구매이력 삭제 실패');
+        }
+    })
+}
+
 module.exports.dispHistory = dispHistory;
 module.exports.dispProduct = dispProduct;
 
 module.exports.procProduct = procProduct;
+module.exports.procDeleteHistory = procDeleteHistory
 module.exports.procOrder = procOrder;

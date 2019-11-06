@@ -35,7 +35,8 @@ module.exports = {
         {file:'./account', path:'/procAccount', method:'procAccount', type:'post'},
 
         {file:'./product', path:'/procProduct', method:'procProduct', type:'upload'},
-        {file:'./product', path:'/procOrder', method:'procOrder', type:'post'}
+        {file:'./product', path:'/procOrder', method:'procOrder', type:'post'},
+        {file:'./product', path:'/procDeleteHistory', method:'procDeleteHistory', type:'post'}
     ]
 }
 
