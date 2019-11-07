@@ -36,7 +36,8 @@ module.exports = {
 
         {file:'./product', path:'/procProduct', method:'procProduct', type:'upload'},
         {file:'./product', path:'/procOrder', method:'procOrder', type:'post'},
-        {file:'./product', path:'/procDeleteHistory', method:'procDeleteHistory', type:'post'}
+        {file:'./product', path:'/procOrder', method:'procOrder', type:'get'},
+        {file:'./product', path:'/procDeleteHistory', method:'procDeleteHistory', type:'get'}
     ]
 }
 

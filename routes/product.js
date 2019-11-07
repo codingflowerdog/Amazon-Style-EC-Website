@@ -64,7 +64,7 @@ var dispProduct = function(req,res){
 
         console.log('in findById : ' + viewProductId);
         if(findProductInfo){
-            context.id = accountEmail;
+            context.id = viewProductId;
             context.product = findProductInfo._doc;
         } else {
             context.id='';
@@ -85,9 +85,13 @@ var dispProduct = function(req,res){
 
                 if(!historyList.includes(viewProductId)){
                     historyList.unshift(viewProductId);
+                    console.log('목록 추가');
+                    console.log(historyList);
                 } else {
                     // viewHistoryList Updated by ES6 filter
                     historyList = [viewProductId].concat(historyList.filter(id => id !== viewProductId));
+                    console.log('기존 목록 갱신')
+                    console.log(historyList);
                 }
 
                 viewHistoryModel.updateByEmail(req.session.accountEmail,historyList,function(err,updatedViewHistory){
@@ -252,13 +256,13 @@ var procDeleteHistory = function(req,res){
 
     var database = req.app.get('database');
 
-    const orderHistoryModel = database.ordderHistoryModel;
+    const orderHistoryModel = database.orderHistoryModel;
 
     console.log('view History Find Called');
     orderHistoryModel.findByEmail(accountEmail,function(err,findOrderHistoryInfo){
         if(err){throw err;}
         console.log('here?');
-        console.log('in findByEmail : ' + viewProductId);
+        console.log('in findByEmail : ' + deleteProductId);
 
         if(findOrderHistoryInfo.length > 0 ){
 
@@ -266,7 +270,7 @@ var procDeleteHistory = function(req,res){
 
             orderedList = [].concat(orderedList.filter(id => id !== deleteProductId));
 
-            orderHistoryModel.updateByEmail(req.session.accountEmail,orderedList,function(err,updatedOrderHistory){
+            orderHistoryModel.updateOrderHistory(req.session.accountEmail,orderedList,function(err,updatedOrderHistory){
                 if(err){throw err;}
 
                 if(updatedOrderHistory.ok === 1){
@@ -279,7 +283,63 @@ var procDeleteHistory = function(req,res){
             // Todo : 에러페이지 추가하기
             console.log('구매이력 삭제 실패');
         }
+
+        res.redirect('/')
     })
+};
+
+var procReorder = function(req,res){
+    var database = req.app.get('database');
+    var accountEmail = req.session.accountEmail;
+    var orderProductId = req.query.id;
+    var orderHistoryModel = database.orderHistoryModel;
+
+    orderHistoryModel.findByEmail(accountEmail,function(err,orderHistory){
+        if(err){throw err;};
+        if(orderHistory.length > 0){
+
+            if(!orderHistory[0].orderedList.includes(orderProductId)){
+                orderHistory[0].orderedList.push(orderProductId);
+                orderHistoryModel.updateOrderHistory(accountEmail,orderHistory[0].orderedList,function(err,updatedOrderHistory){
+                    if(err){throw err;}
+
+                    console.log(updatedOrderHistory);
+                    if(updatedOrderHistory.ok === 1){
+                        console.log('구매이력 추가 완료');
+                        console.log(updatedOrderHistory);
+                        res.redirect('/');
+                    } else {
+                        console.log('구매이력 추가 실패');
+                        res.redirect('/');
+                    }
+
+                })
+            } else {
+                console.log('기존 구매이력 존재');
+                res.redirect('/');
+            }
+
+        } else{
+            const historyModel = new database.orderHistoryModel({
+                email:req.session.accountEmail,
+                orderedList:[orderProductId]
+            });
+            console.log('모델 생성 성공');
+
+            historyModel.saveOrderHistory(function(err,createdOrderHistory){
+                if(err){throw err;}
+
+                if(createdOrderHistory){
+                    console.log('구매이력 추가 완료');
+                    console.log(createdOrderHistory);
+                    res.redirect('/');
+                } else{
+                    console.log('구매이력 추가 실패');
+                    res.redirect('/');
+                }
+            })
+        }
+    });
 }
 
 module.exports.dispHistory = dispHistory;
@@ -288,3 +348,4 @@ module.exports.dispProduct = dispProduct;
 module.exports.procProduct = procProduct;
 module.exports.procDeleteHistory = procDeleteHistory
 module.exports.procOrder = procOrder;
+module.exports.procReorder = procReorder;
