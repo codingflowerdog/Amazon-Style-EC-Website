@@ -40,6 +40,10 @@ schema.createSchema = function(mongoose){
         return this.find({'_id':{$in:productIdList}},callback).limit(15);
     });
 
+    productSchema.static('findByTitle',function(query,callback){
+        return this.find({'title':new RegExp(query,'i')},callback)
+    })
+
     productSchema.static('deleteById',function(id,callback){
         this.deleteOne({'_id':id},callback);
     });
